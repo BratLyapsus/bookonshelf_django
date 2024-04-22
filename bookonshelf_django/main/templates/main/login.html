@@ -1,0 +1,23 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+
+{% block content %}
+
+<div class="features_login">
+    <h1>{{ title }}</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.username }}<br>
+        {{ form.password }}<br>
+        <button class="btn btn-success" type="submit">Войти</button><br><br><br>
+        {% if error_message %}
+        <p class="error">{{ error_message }}</p>
+        {% endif %}
+    </form><br><br>
+
+    {% endblock %}
+
+</div>

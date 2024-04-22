@@ -1,0 +1,19 @@
+﻿{% extends 'main/layout.html' %}
+
+{% block title %}Личная страница пользователя{% endblock %}
+
+{% block aside_links %}
+{% include 'main/user_links.html'%}
+{% endblock %}
+
+{% block content %}
+
+<div class="features">
+    <h1>Личная страница пользователя</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur deleniti doloribus officia officiis quam quasi rerum tempore ut voluptates voluptatibus.</p>
+    <button class="btn btn-warning">На страницу про нас</button>
+
+
+</div>
+{{ error_message}}
+{% endblock %}
