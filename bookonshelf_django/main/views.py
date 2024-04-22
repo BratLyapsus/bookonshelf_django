@@ -2,6 +2,7 @@
 from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm
 from adm import views as adm_views
+from main.decorators import has_admin_permission, has_user_permission
 
 
 def index(request):
@@ -49,27 +50,27 @@ def logout_view(request):
    logout(request)
    return redirect('home')
 
-def has_admin_permission(view_func):
-    def decorator(request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('login')
+#def has_admin_permission(view_func):
+#    def decorator(request, *args, **kwargs):
+#        if not request.user.is_authenticated:
+#            return redirect('login')
 
-        if not request.user.groups.filter(name='admin').exists():
-            return redirect('no_access')#('permission_denied')
-        return view_func(request, *args, **kwargs)
-    return decorator
+#        if not request.user.groups.filter(name='admin').exists():
+#            return redirect('no_access')#('permission_denied')
+#        return view_func(request, *args, **kwargs)
+#    return decorator
 
-def has_user_permission(view_func):
-    def decorator(request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('login')
+#def has_user_permission(view_func):
+#    def decorator(request, *args, **kwargs):
+#        if not request.user.is_authenticated:
+#            return redirect('login')
 
-        if request.user.groups.filter(name='user').exists():
-            return view_func(request, *args, **kwargs)
-        else:
-            print('no_access')
-            return redirect('no_access')
-    return decorator
+#        if request.user.groups.filter(name='user').exists():
+#            return view_func(request, *args, **kwargs)
+#        else:
+#            print('no_access')
+#            return redirect('no_access')
+#    return decorator
 
 @has_user_permission
 def user_home(request):    

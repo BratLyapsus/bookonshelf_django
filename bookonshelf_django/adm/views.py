@@ -5,9 +5,9 @@ from django.contrib.auth import authenticate, login, logout
 from books.forms import WritersForm
 from books.models import Writers
 from main import views as main_views
-#from main.views import has_admin_permission, has_user_permission
+from main.decorators import has_admin_permission, has_user_permission
 
-
+@has_admin_permission
 def all_books(request):
     writers = Writers.objects.all()
     return render(request, "adm/allbooks.html", {'writers': writers})

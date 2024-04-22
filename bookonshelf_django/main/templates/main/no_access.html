@@ -1,11 +1,19 @@
-<!DOCTYPE html>
+{% extends 'main/layout.html' %}
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+{% block title %}Доступ запрещен}{% endblock %}
 
-</body>
-</html>
+{% block aside_links %}
+{% include 'main/main_links.html'%}
+{% endblock %}
+
+{% block content %}
+
+<div class="features_info">
+    <h1>У вас нет доступа к этой странице</h1>
+
+    
+
+
+</div>
+
+{% endblock %}

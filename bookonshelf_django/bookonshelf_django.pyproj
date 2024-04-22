@@ -52,6 +52,9 @@
     <Compile Include="books\__init__.py" />
     <Compile Include="main\admin.py" />
     <Compile Include="main\apps.py" />
+    <Compile Include="main\decorators.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="main\forms.py">
       <SubType>Code</SubType>
     </Compile>
