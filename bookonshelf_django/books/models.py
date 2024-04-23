@@ -1,14 +1,6 @@
 ﻿from django.db import models
 
-#class Books(models.Model):    
-#    writer_id = models.IntegerField('writerid')
-#    genre_id = models.IntegerField('genreid')
-#    language_id = models.IntegerField('languageid')
-#    bookname = models.CharField('bookName', max_length=250 )
-#    bookannotation = models.TextField('bookAnnotation')
-#    pageamount = models.IntegerField('pageAmount')
-#    bookamount = models.IntegerField('bookAmount')
-#    registrationnumber = models.CharField('registrationNumber', max_length=10 )
+
     
 #class Users(models.Model):    
     
@@ -47,4 +39,23 @@ class Languages(models.Model):
     class Meta:
         verbose_name = 'Язык'
         verbose_name_plural = 'Языки'
+
+class Books(models.Model):
+
+    bookname = models.CharField('bookName', max_length=250 )
+    bookannotation = models.TextField('bookAnnotation')
+    pageamount = models.IntegerField('pageAmount')
+    bookamount = models.IntegerField('bookAmount')
+    registrationnumber = models.CharField('registrationNumber', max_length=10 )
+    writer = models.ForeignKey(Writers, on_delete=models.CASCADE)
+    language = models.ForeignKey(Languages, on_delete=models.CASCADE)
+    genre = models.ForeignKey(Genres, on_delete=models.CASCADE)
+    cover = models.ImageField(upload_to='cover/', blank=True)
+
+    def __str__(self):
+        return self.bookname
+
+    class Meta:
+        verbose_name = 'Книга'
+        verbose_name_plural = 'Книги'
         
