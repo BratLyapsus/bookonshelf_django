@@ -2,15 +2,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 #from .forms import LoginForm
-from books.forms import WritersForm
-from books.models import Writers
+from books.forms import WritersForm, BooksForm
+from books.models import Writers, Books
 from main import views as main_views
 from main.decorators import has_admin_permission, has_user_permission
 
 @has_admin_permission
 def all_books(request):
-    writers = Writers.objects.all()
-    return render(request, "adm/allbooks.html", {'writers': writers})
+    books = Books.objects.all()
+    return render(request, "adm/allbooks.html", {'books': books})
 
 #def add_book(request):
 #    writersform = WritersForm()
@@ -18,27 +18,27 @@ def all_books(request):
 #        'writersform': writersform
 #        }
 #    return render(request, 'adm/addbook.html', data)
-
+@has_admin_permission
 def add_book(request):
     error = ''
     if request.method == 'POST':
-        writersform = WritersForm(request.POST)
-        if writersform.is_valid():
-            writersform.save()
+        booksform = BooksForm(request.POST)
+        if booksform.is_valid():
+            booksform.save()
             return redirect('admin_allbooks') 
         else: 
             error = 'Форма заполнена неверно'
-    writersform = WritersForm()
+    booksform = BooksForm()
     
     data = {
         
-        'writersform': writersform,
+        'booksform': booksform,
         'error': error
         
         } 
     return render(request, "adm/addbook.html", data)
 
-
+@has_admin_permission
 def add_writer(request):
     error = ''
     if request.method == 'POST':

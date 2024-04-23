@@ -1,7 +1,7 @@
 ﻿from django.db import models
 
 class Writers(models.Model):
-    writername = models.CharField('writername', max_length=20)
+    writername = models.CharField('writername', max_length=50)
   
     def __str__(self):
         return self.writername
@@ -11,7 +11,7 @@ class Writers(models.Model):
         verbose_name_plural = 'Писатели'
         
 class Genres(models.Model):
-    genre = models.CharField('genre', max_length=20)
+    genre = models.CharField('genre', max_length=50)
   
     def __str__(self):
         return self.genre
@@ -21,7 +21,7 @@ class Genres(models.Model):
         verbose_name_plural = 'Жанры'
         
 class Languages(models.Model):
-    language = models.CharField('language', max_length=20)
+    language = models.CharField('language', max_length=50)
   
     def __str__(self):
         return self.language
@@ -32,7 +32,7 @@ class Languages(models.Model):
 
 class Books(models.Model):
 
-    bookname = models.CharField('bookName', max_length=250 )
+    bookname = models.CharField('bookName', max_length=50 )
     bookannotation = models.TextField('bookAnnotation')
     pageamount = models.IntegerField('pageAmount')
     bookamount = models.IntegerField('bookAmount')

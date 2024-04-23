@@ -12,9 +12,15 @@
     <h1>Добавить книгу</h1>
     <form method="post">
         {% csrf_token %}
-
-        {{ writersform.writername }}<br>
-
+        {{ booksform.bookname }}<br>
+        {{ booksform.writer }}<br>
+        {{ booksform.genre }}<br>
+        {{ booksform.language }}<br>
+        {{ booksform.pageamount }}<br>
+        {{ booksform.bookamount }}<br>
+        {{ booksform.registrationnumber }}<br>
+        {{ booksform.bookannotation }}<br>
+        {{ booksform.cover }}<br>
 
 
         {% comment %}
