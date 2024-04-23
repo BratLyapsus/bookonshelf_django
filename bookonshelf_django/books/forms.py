@@ -15,6 +15,29 @@ class WritersForm(ModelForm):
             }),
         }
 
+class GenresForm(ModelForm):
+        class Meta:
+            model = Genres
+            fields = ['genre']
+            widgets = {
+                'genre': forms.TextInput(attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Жанр'
+                }),
+            }
+
+class LanguagesForm(ModelForm):
+    class Meta:
+        model = Languages
+        fields = ['language']
+        widgets = {
+            'language': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Язык'
+            }),
+        }
+
+
 class BooksForm(forms.ModelForm):
     writer = forms.ModelChoiceField(queryset=Writers.objects.all(),
                                     empty_label='Выберите автора',

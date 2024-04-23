@@ -12,7 +12,7 @@
     <h1>Все книги</h1>
     {% for book in books %}
         <h3>{{ book.bookname}}</h3>
-        <p>{{ book.bookannotation}}</p>
+        <img src="{{ book.cover.url }}" alt="Book Cover">
     {% endfor %}
 
 </div>

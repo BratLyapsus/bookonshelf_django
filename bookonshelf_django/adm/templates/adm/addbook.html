@@ -8,9 +8,12 @@
 
 {% block content %}
 
+
+        <a href="{% url 'admin_addwriter' %}" class="addwriter_link"></a><br><br>
+
 <div class="features">
     <h1>Добавить книгу</h1>
-    <form method="post">
+        <<form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ booksform.bookname }}<br>
         {{ booksform.writer }}<br>
@@ -21,23 +24,7 @@
         {{ booksform.registrationnumber }}<br>
         {{ booksform.bookannotation }}<br>
         {{ booksform.cover }}<br>
-
-
-        {% comment %}
-        Всю форму мы заменили классом в forms.py
-        <input type="text" placeholder="Название статьи" class="form-control"><br>
-        <input type="text" placeholder="Анонс статьи" class="form-control"><br>
-        <textarea class="form-control" placeholder="Текст статьи"></textarea><br>
-        <input type="date" class="form-control"><br>
-        <input type="time" class="form-control"><br>
-
-        {% endcomment %}
-
-        <button class=" btn btn-success" type="submit">Добавить автора</button>
-
-
-
+        <button class=" btn btn-success" type="submit">Добавить книгу</button>
     </form>
-
 </div>
 {% endblock %}

@@ -6,5 +6,7 @@ urlpatterns = [
     path('adm/allbooks', views.all_books, name='admin_allbooks'),
     path('adm/addbook', views.add_book, name='admin_addbooks'),
     path('adm/addwriter', views.add_writer, name='admin_addwriter'),
+    path('adm/addgenre', views.add_genre, name='admin_addgenre'),
+    path('adm/addlanguage', views.add_language, name='admin_addlanguage'),
     
     ]
