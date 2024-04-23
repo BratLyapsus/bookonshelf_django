@@ -37,3 +37,23 @@ def add_book(request):
         
         } 
     return render(request, "adm/addbook.html", data)
+
+
+def add_writer(request):
+    error = ''
+    if request.method == 'POST':
+        writersform = WritersForm(request.POST)
+        if writersform.is_valid():
+            writersform.save()
+            return redirect('admin_allbooks')
+        else:
+            error = 'Форма заполнена неверно'
+    writersform = WritersForm()
+
+    data = {
+
+        'writersform': writersform,
+        'error': error
+
+    }
+    return render(request, "adm/addwriter.html", data)
