@@ -1,16 +1,6 @@
 ﻿from django.db import models
 
-
-    
-#class Users(models.Model):    
-    
-#    username = models.CharField('username', max_length=20)
-#    password = models.CharField('password', max_length=20)
-#    firstname = models.CharField('firstname', max_length=20, default='John')
-#    lastname = models.CharField('lastname', max_length=20, default='Baker')
-#    useremail = models.EmailField('email', default='exampl@exampli.com')
-
-class Writers(models.Model): 
+class Writers(models.Model):
     writername = models.CharField('writername', max_length=20)
   
     def __str__(self):
@@ -20,7 +10,7 @@ class Writers(models.Model):
         verbose_name = 'Писатель'
         verbose_name_plural = 'Писатели'
         
-class Genres(models.Model): 
+class Genres(models.Model):
     genre = models.CharField('genre', max_length=20)
   
     def __str__(self):
@@ -30,7 +20,7 @@ class Genres(models.Model):
         verbose_name = 'Жанр'
         verbose_name_plural = 'Жанры'
         
-class Languages(models.Model): 
+class Languages(models.Model):
     language = models.CharField('language', max_length=20)
   
     def __str__(self):
