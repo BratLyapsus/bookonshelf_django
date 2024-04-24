@@ -77,3 +77,26 @@ class BooksForm(forms.ModelForm):
                 'class': 'form-control-file',
             }),
         }
+
+class BookSearchForm(forms.Form):
+    bookname = forms.CharField(
+        label='bookname',
+        max_length=50,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Название книги'})
+    )
+#    writername = forms.CharField(
+#        label='writername',
+#        max_length=50,
+#        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Автор'})
+#    )
+
+#    def clean(self):
+#        cleaned_data = super().clean()
+#        bookname = cleaned_data.get('bookname')
+#        writername = cleaned_data.get('writername')
+
+#        if not bookname and not writername:
+#            raise forms.ValidationError("Заполните одно из полей поиска")
+
+#        return cleaned_data
+

@@ -1,8 +1,7 @@
-﻿#from csv import writer
-from django.shortcuts import render, redirect
+﻿from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 #from .forms import LoginForm
-from books.forms import WritersForm, BooksForm, GenresForm, LanguagesForm
+from books.forms import WritersForm, BooksForm, GenresForm, LanguagesForm, BookSearchForm
 from books.models import Writers, Books, Genres, Languages
 from main import views as main_views
 from main.decorators import has_admin_permission, has_user_permission
@@ -10,7 +9,12 @@ from main.decorators import has_admin_permission, has_user_permission
 @has_admin_permission
 def all_books(request):
     books = Books.objects.all()
-    return render(request, "adm/allbooks.html", {'books': books})
+    booksearchform = BookSearchForm()
+    data = {
+        'books': books,
+        'booksearchform': booksearchform
+    }
+    return render(request, "adm/allbooks.html", data)
 
 
 @has_admin_permission
@@ -44,6 +48,8 @@ def add_writer(request):
         else:
             error = 'Форма заполнена неверно'
     writersform = WritersForm()
+
+
 
     data = {
 
@@ -89,3 +95,12 @@ def add_language(request):
 
     }
     return render(request, "adm/addlanguage.html", data)
+
+def book_search(request):
+
+    booksearchform = BookSearchForm()
+    data = {
+#        'books': books,
+        'booksearchform': booksearchform
+    }
+    return render(request, "adm/booksearch.html", data)

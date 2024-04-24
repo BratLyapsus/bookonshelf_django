@@ -8,7 +8,15 @@
 
 {% block content %}
 
+
+
 <div class="features">
+    <form method="post" class BookSearchForm>
+        {% csrf_token %}
+        <p>{{ booksearchform.bookname}}</p>
+        <!--<p>{{ booksearchform.writername}}</p>-->
+    <button class=" btn btn-success" type="submit">Поиск</button>
+    </form>
     <h1>Все книги</h1>
     {% for book in books %}
         <h3>{{ book.bookname}}</h3>
