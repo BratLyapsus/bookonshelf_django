@@ -12,7 +12,9 @@
 
 <div class="features">
     <form method="post" class BookSearchForm>
-    <input type="text" placeholder="Название книги" name="booknamesearch">
+        {% csrf_token %}
+        <p>{{ booksearchform.bookname}}</p>
+        <!--<p>{{ booksearchform.writername}}</p>-->
     <button class=" btn btn-success" type="submit">Поиск</button>
     </form>
     <h1>Все книги</h1>
