@@ -10,8 +10,9 @@
 
 <div class="features">
     <h1>Все книги</h1>
-    {% for writer in writers %}
-    <h3>{{ writer.writername}}</h3>
+    {% for book in books %}
+        <h3>{{ book.bookname}}</h3>
+        <img src="{{ book.cover.url }}" alt="Book Cover">
     {% endfor %}
 
 </div>

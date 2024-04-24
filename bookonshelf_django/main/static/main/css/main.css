@@ -41,7 +41,7 @@ aside {
         aside ul li {
             color: #fff;
             display: block;
-            margin-top: 20px;
+            margin-top: 10px;
             transition: transform .6s ease;
         }
 
@@ -54,7 +54,7 @@ aside {
 main .features {
     float: left;
     color: #fff;
-    margin-top: 50px;
+    margin-top: 20px;
     margin-left: 22%;
     text-align: center;
     width: 75%;
@@ -106,15 +106,15 @@ main .features_login {
     float: left;
     clear: both;
     width: 50%;
-    position:: absolute;
+    position: absolute;
     left: 25%;
-    margin: 20px, 34%;
+    margin: 34%;
     text-align: left;
     font-size: 12px;
 }
 
 form {
-    margin-left: 35%;
+    margin-left: 30%;
     width: 500px;
-    margin-top: 50px;
+    margin-top: 20px;
 }
