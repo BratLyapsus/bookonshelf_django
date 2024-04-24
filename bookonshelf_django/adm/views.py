@@ -95,39 +95,40 @@ def add_language(request):
     }
     return render(request, "adm/addlanguage.html", data)
 
-def book_search(request):
+#def book_search(request):
 
-    booksearchform = BookSearchForm()
-    data = {
-        'booksearchform': booksearchform
-    }
-    return render(request, "adm/booksearch.html", data)
+#    booksearchform = BookSearchForm()
+#    data = {
+#        'booksearchform': booksearchform
+#    }
+#    return render(request, "adm/booksearch.html", data)
 def search_result(request):
+    return render(request, "adm/searchresult.html")
+def book_search(request):
+    data = {}  # Initialize empty data dictionary
     error = ''
+
     if request.method == 'POST':
-            form = BookSearchForm(request.POST)
-            if form.is_valid():
-                bookname = form.cleaned_data['bookname']
-                books = Books.objects.filter(bookname__icontains=bookname)
-                if books:
-                    data = {'books': books}
-                    return render(request, "adm/searchresult.html", data)
-                else:
-                    error = 'Такая книга не найдена'
-
-                    data = {
-
-                        'error': error
-                    }
-                    return render(request, "adm/searchresult.html", data)
+        form = BookSearchForm(request.POST)
+        if form.is_valid():
+            bookname = form.cleaned_data['bookname']
+            books = Books.objects.filter(bookname__icontains=bookname)
+            if books:
+                data['books'] = books  # Add books to data if found
             else:
-                error = 'Заполните форму'
+                data['error'] = 'Книг с названием "%s" не найдено.' % bookname  # Specific message for no results
+        else:
+            error = 'Форма не заполнена'  # Set error message
+            data['error'] = error  # Add error message to data
 
-                data = {
+    else:  # Handling GET requests
+        form = BookSearchForm()  # Create a new form for initial display
 
-                    'error': error
-                }
-    return render(request, "adm/searchresult.html", data)
+    # Always add the form to data, regardless of POST success/failure or GET request
+    data['form'] = form
+
+    # Return the rendered template with the populated data dictionary
+    return render(request, "adm/booksearch.html", data)
 
 #def book_search(request):
 #    if request.method == 'POST':
