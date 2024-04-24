@@ -103,7 +103,31 @@ def book_search(request):
     }
     return render(request, "adm/booksearch.html", data)
 def search_result(request):
-    return render(request, "adm/searchresult.html")
+    error = ''
+    if request.method == 'POST':
+            form = BookSearchForm(request.POST)
+            if form.is_valid():
+                bookname = form.cleaned_data['bookname']
+                books = Books.objects.filter(bookname__icontains=bookname)
+                if books:
+                    data = {'books': books}
+                    return render(request, "adm/searchresult.html", data)
+                else:
+                    error = 'Такая книга не найдена'
+
+                    data = {
+
+                        'error': error
+                    }
+                    return render(request, "adm/searchresult.html", data)
+            else:
+                error = 'Заполните форму'
+
+                data = {
+
+                    'error': error
+                }
+    return render(request, "adm/searchresult.html", data)
 
 #def book_search(request):
 #    if request.method == 'POST':

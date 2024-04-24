@@ -8,7 +8,7 @@
 {% block content %}
 <div class="features">
     <h1>Поиск</h1>
-    <form method="post" action="admin_searchresult">
+    <form method="post" action="{% url 'admin_searchresult' %}">
         {% csrf_token %}
         <p>{{ booksearchform.bookname}}</p>
     <button class=" btn btn-success" type="submit">Искать</button>

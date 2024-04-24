@@ -1,0 +1,18 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Результат{% endblock %}
+
+{% block aside_links %}
+{% include 'main/admin_links.html'%}
+{% endblock %}
+
+{% block content %}
+<div class="features">
+    <h1>Результат</h1>
+             {% for book in books %}
+                {{ book.bookname }}
+                <!-- Add more book details here if needed -->
+            {% endfor %}
+{{ error }}
+</div>
+{% endblock %}
