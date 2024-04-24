@@ -1,0 +1,20 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Добавить язык{% endblock %}
+
+{% block aside_links %}
+{% include 'main/admin_links.html'%}
+{% endblock %}
+
+{% block content %}
+
+<div class="features">
+    <h1>Добавить язык</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ languagesform.language }}<br>
+        <button class=" btn btn-success" type="submit">Добавить язык</button>
+    </form>
+
+</div>
+{% endblock %}
