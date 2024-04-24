@@ -77,3 +77,7 @@ class BooksForm(forms.ModelForm):
                 'class': 'form-control-file',
             }),
         }
+
+class BooksSearchForm(forms.Form):
+    bookname = forms.CharField(label='Book Name', max_length=50)
+    writername = forms.CharField(label='Writer', max_length=50)
