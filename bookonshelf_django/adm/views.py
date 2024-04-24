@@ -16,7 +16,6 @@ def all_books(request):
     }
     return render(request, "adm/allbooks.html", data)
 
-
 @has_admin_permission
 def add_book(request):
     error = ''
@@ -100,7 +99,26 @@ def book_search(request):
 
     booksearchform = BookSearchForm()
     data = {
-#        'books': books,
         'booksearchform': booksearchform
     }
     return render(request, "adm/booksearch.html", data)
+def search_result(request):
+    return render(request, "adm/searchresult.html")
+
+#def book_search(request):
+#    if request.method == 'POST':
+#        form = BookSearchForm(request.POST)
+#        if form.is_valid():
+#            bookname = form.cleaned_data.get('bookname')
+#            # Perform book search
+#            books = Books.search_book(bookname)
+
+#            if books:
+#                return render(request, 'admin_booksearch', {'books': books})
+#            else:
+#                return HttpResponse('No books found matching the search criteria.')
+#    else:
+#        form = BookSearchForm()
+
+    # If the form is not valid or if it's a GET request, render the search form page
+#    return render(request, 'admin_booksearch', {'form': form})

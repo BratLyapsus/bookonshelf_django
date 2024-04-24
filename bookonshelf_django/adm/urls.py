@@ -9,5 +9,6 @@ urlpatterns = [
     path('adm/addgenre', views.add_genre, name='admin_addgenre'),
     path('adm/addlanguage', views.add_language, name='admin_addlanguage'),
     path('adm/booksearch', views.book_search, name='admin_booksearch'),
+    path('adm/searchresult', views.search_result, name='admin_searchresult'),
     
     ]

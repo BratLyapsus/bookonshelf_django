@@ -42,6 +42,11 @@ class Books(models.Model):
     genre = models.ForeignKey(Genres, on_delete=models.CASCADE)
     cover = models.ImageField(upload_to='cover/', blank=True)
 
+    @classmethod
+    def search_book(cls, search_term):
+        # Search for the book by book name or registration number
+        return cls.objects.filter(bookname__icontains=search_term)
+
     def __str__(self):
         return self.bookname
 
