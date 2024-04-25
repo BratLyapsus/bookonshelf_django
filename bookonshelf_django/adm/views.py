@@ -102,8 +102,8 @@ def add_language(request):
 #        'booksearchform': booksearchform
 #    }
 #    return render(request, "adm/booksearch.html", data)
-def search_result(request):
-    return render(request, "adm/searchresult.html")
+def book_details(request):
+    return render(request, "adm/bookdetails.html")
 def book_search(request):
     data = {}  # Initialize empty data dictionary
     error = ''
@@ -129,21 +129,3 @@ def book_search(request):
 
     # Return the rendered template with the populated data dictionary
     return render(request, "adm/booksearch.html", data)
-
-#def book_search(request):
-#    if request.method == 'POST':
-#        form = BookSearchForm(request.POST)
-#        if form.is_valid():
-#            bookname = form.cleaned_data.get('bookname')
-#            # Perform book search
-#            books = Books.search_book(bookname)
-
-#            if books:
-#                return render(request, 'admin_booksearch', {'books': books})
-#            else:
-#                return HttpResponse('No books found matching the search criteria.')
-#    else:
-#        form = BookSearchForm()
-
-    # If the form is not valid or if it's a GET request, render the search form page
-#    return render(request, 'admin_booksearch', {'form': form})
