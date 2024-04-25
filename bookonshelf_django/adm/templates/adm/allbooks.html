@@ -7,21 +7,24 @@
 {% endblock %}
 
 {% block content %}
+    <div class="features_books">
 
+       <h1>Все книги</h1>
+        <div class="book_list">
 
+            {% for book in books %}
+                <ul>
+                <li>
+                    <div class="card">
+                    <img src="{{ book.cover.url }}" alt="Book Cover">
+                    <div class="container">
+                        <a href="" class="book_link">Перейти к книге</a>
+                    </div>
+                </div>
+                </li>
+                </ul>
+            {% endfor %}
+        </div>
+    </div>
 
-<div class="features">
-    <form method="post" class BookSearchForm>
-        {% csrf_token %}
-        <p>{{ booksearchform.bookname}}</p>
-        <!--<p>{{ booksearchform.writername}}</p>-->
-    <button class=" btn btn-success" type="submit">Поиск</button>
-    </form>
-    <h1>Все книги</h1>
-    {% for book in books %}
-        <h3>{{ book.bookname}}</h3>
-        <img src="{{ book.cover.url }}" alt="Book Cover">
-    {% endfor %}
-
-</div>
 {% endblock %}
