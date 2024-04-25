@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'main/layout.html' %}
 
-</body>
-</html>
+{% block title %}Все книги{% endblock %}
+
+{% block aside_links %}
+{% include 'main/admin_links.html'%}
+{% endblock %}
+
+{% block content %}
+    <div class="features_books">
+
+           <h1>{{book.bookname}}</h1>
+              <h2>{{book.writer}}</h2>
+                <h3>{{book.genre}}</h3>
+                <h4>{{book.year}}</h4>
+
+                    <div class="card_bookdetails">
+                    <img src="{{ book.cover.url }}" alt="Book Cover">
+                    <div class="container">
+
+                    </div>
+                </div>
+
+
+    </div>
+
+{% endblock %}

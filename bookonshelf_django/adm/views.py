@@ -1,4 +1,4 @@
-﻿from django.shortcuts import render, redirect, HttpResponse
+﻿from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 #from .forms import LoginForm
 from books.forms import WritersForm, BooksForm, GenresForm, LanguagesForm, BookSearchForm
@@ -102,8 +102,9 @@ def add_language(request):
 #        'booksearchform': booksearchform
 #    }
 #    return render(request, "adm/booksearch.html", data)
-def book_details(request):
-    return render(request, "adm/bookdetails.html")
+def book_details(request, book_id):
+    book = get_object_or_404(Books, id=book_id)
+    return render(request, 'adm/bookdetails.html', {'book': book})
 def book_search(request):
     data = {}  # Initialize empty data dictionary
     error = ''

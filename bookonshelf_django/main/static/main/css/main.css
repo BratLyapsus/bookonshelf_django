@@ -185,15 +185,39 @@ main .features_books {
         margin: 20px auto;
     }
     .book_link {
-            color: black;
-            margin-top: 25px;
-            border: darkblue 2px solid;
-            border-radius: 5px;
-            background-color: aqua;
-            padding: 2px;
+        color: black;
+        margin-top: 25px;
+        border: darkblue 2px solid;
+        border-radius: 5px;
+        background-color: aqua;
+        padding: 2px;
+        font-size: 16px;
     }
+    /* When the screen size is 1920px or less (typical for 22 inch screens), decrease the font size */
+@media screen and (max-width: 1920px) {
+    .book_link {
+        font-size: 16px;
+    }
+}
+
+/* When the screen size is 1366px or less (typical for 14 inch screens), decrease the font size even more */
+@media screen and (max-width: 1366px) {
+    .book_link {
+        font-size: 10px;
+    }
+}
                 book_link:hover {
                     color: #eb5959;
                     text-decoration: none;
                     transform: scale(1.05);
                 }
+.card_bookdetails {
+  /* Add shadows to create the "card" effect */
+
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 250px;
+    padding: 2px;
+    height: 400px;
+
+}
