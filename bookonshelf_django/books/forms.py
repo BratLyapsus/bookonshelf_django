@@ -4,6 +4,7 @@ from django.forms import ModelForm
 
 
 
+
 class WritersForm(ModelForm):
     class Meta:
         model = Writers
@@ -79,9 +80,9 @@ class BooksForm(forms.ModelForm):
         }
 
 class BookSearchForm(forms.Form):
-    bookname = forms.CharField(
+    query = forms.CharField(
         label='bookname',
         max_length=50,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Название книги'})
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Книга, автор, жанр или ISBN'})
     )
 #

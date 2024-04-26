@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 #from .forms import LoginForm
 from books.forms import WritersForm, BooksForm, GenresForm, LanguagesForm, BookSearchForm
 from books.models import Writers, Books, Genres, Languages
+from django.db.models import Q
 from main import views as main_views
 from main.decorators import has_admin_permission, has_user_permission
 
@@ -112,12 +113,15 @@ def book_search(request):
     if request.method == 'POST':
         form = BookSearchForm(request.POST)
         if form.is_valid():
-            bookname = form.cleaned_data['bookname']
-            books = Books.objects.filter(bookname__icontains=bookname)
+            #bookname = form.cleaned_data['bookname']
+            query = form.cleaned_data['query']
+            #books = Books.objects.filter(bookname__icontains=bookname)
+            books = Books.search(query)
             if books:
                 data['books'] = books  # Add books to data if found
+                form = BookSearchForm()  # Create a new form for initial display
             else:
-                data['error'] = 'Книг с названием "%s" не найдено.' % bookname  # Specific message for no results
+                data['error'] = 'Книг с запросом "%s" не найдено.' % query  # Specific message for no results
         else:
             error = 'Форма не заполнена'  # Set error message
             data['error'] = error  # Add error message to data

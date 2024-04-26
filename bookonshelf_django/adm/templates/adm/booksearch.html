@@ -10,7 +10,7 @@
     <h1>Поиск</h1>
     <form method="post">
         {% csrf_token %}
-        <p>{{ form.bookname}}</p>
+        <p>{{ form.query}}</p>
         <button class=" btn btn-success" type="submit">Искать</button>
     </form>
        <h2>Результат поиска</h2>

@@ -43,9 +43,13 @@ class Books(models.Model):
     cover = models.ImageField(upload_to='cover/', blank=True)
 
     @classmethod
-    def search_book(cls, search_term):
-        # Search for the book by book name or registration number
-        return cls.objects.filter(bookname__icontains=search_term)
+    def search(cls, query):
+        return cls.objects.filter(
+            models.Q(bookname__icontains=query) |
+            models.Q(registrationnumber__icontains=query) |
+            models.Q(writer__writername__icontains=query) |
+            models.Q(genre__genre__icontains=query)
+        )
 
     def __str__(self):
         return self.bookname

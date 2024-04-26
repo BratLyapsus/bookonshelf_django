@@ -7,11 +7,13 @@
 {% endblock %}
 
 {% block content %}
+
+
     <div class="features_books">
 
            <h1>{{book.bookname}}</h1>
-              <h2>{{book.writer}}</h2>
-                <h3>{{book.genre}}</h3> <br><br>
+            <h3>{{book.writer}}</h3>
+            <h2>{{book.genre}}</h2> <br><br>
     <a href="{% url 'admin_deletebook' book_id=book.id %}" class="delete_link">Удалить</a>
     <a href="{% url 'admin_editbook' book_id=book.id %}" class="edit_link">Редактировать</a>
                 <div class="book_details">
