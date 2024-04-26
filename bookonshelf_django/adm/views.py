@@ -130,3 +130,13 @@ def book_search(request):
 
     # Return the rendered template with the populated data dictionary
     return render(request, "adm/booksearch.html", data)
+
+def book_delete(request, book_id):
+    # Step 1: Retrieve the book object using book_id
+    book = get_object_or_404(Books, id=book_id)
+
+    # Step 2: Delete the retrieved book object
+    book.delete()
+
+    # Step 3: Redirect to a new page or render a template
+    return redirect('admin_allbooks')  # Redirect to a specific URL

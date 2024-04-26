@@ -10,4 +10,5 @@ urlpatterns = [
     path('adm/addlanguage', views.add_language, name='admin_addlanguage'),
     path('adm/booksearch', views.book_search, name='admin_booksearch'),
     path('adm/books/<int:book_id>/', views.book_details, name='admin_bookdetails'),
+    path('adm/deletebook/<int:book_id>/', views.book_delete, name='admin_deletebook'),
 ]

@@ -12,6 +12,7 @@
            <h1>{{book.bookname}}</h1>
               <h2>{{book.writer}}</h2>
                 <h3>{{book.genre}}</h3> <br><br>
+    <a href="{% url 'admin_deletebook' book_id=book.id %}" class="delete_link">Удалить</a>
                 <div class="book_details">
                     <div class="card_bookphoto">
                         <img src="{{ book.cover.url }}" alt="Book Cover">
