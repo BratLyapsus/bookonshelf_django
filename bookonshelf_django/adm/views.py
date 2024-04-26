@@ -140,3 +140,22 @@ def book_delete(request, book_id):
 
     # Step 3: Redirect to a new page or render a template
     return redirect('admin_allbooks')  # Redirect to a specific URL
+def book_edit(request, book_id):
+    book = get_object_or_404(Books, id=book_id)
+    error = ''
+    if request.method == 'POST':
+        booksform = BooksForm(request.POST, request.FILES, instance=book)
+        if booksform.is_valid():
+            booksform.save()
+            return redirect('admin_allbooks')
+        else:
+            error = 'Форма заполнена неверно'
+    booksform = BooksForm(instance=book)
+
+    data = {
+
+        'booksform': booksform,
+        'error': error
+
+    }
+    return render(request, 'adm/editbook.html', {'booksform': booksform, 'error': error})

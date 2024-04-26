@@ -1,0 +1,22 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Добавить книгу{% endblock %}
+
+{% block aside_links %}
+{% include 'main/admin_links.html'%}
+{% endblock %}
+
+{% block content %}
+
+<div class="features">
+    <h1>Редактировать книгу</h1>
+        <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for book in booksform %}
+            {{ book}}
+            <br>
+        {% endfor %}
+        <button class=" btn btn-success" type="submit">Сохранить</button>
+    </form>
+</div>
+{% endblock %}
