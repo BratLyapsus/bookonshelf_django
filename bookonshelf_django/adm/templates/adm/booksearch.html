@@ -22,7 +22,7 @@
                     <div class="card">
                     <img src="{{ book.cover.url }}" alt="Book Cover">
                     <div class="container">
-                        <a href="">Перейти к книге</a>
+                        <a href="{% url 'admin_bookdetails' book_id=book.id %}" class="book_link">Перейти к книге</a>
                     </div>
                 </div>
                 </li>

@@ -181,9 +181,10 @@ main .features_books {
     }
 
     features_books  p {
-        max-width: 800px;
+        max-width: 1000px;
         margin: 20px auto;
     }
+
     .book_link {
         color: black;
         margin-top: 25px;
@@ -211,13 +212,32 @@ main .features_books {
                     text-decoration: none;
                     transform: scale(1.05);
                 }
+
 .card_bookdetails {
+    display: inline;
+
+}
+
+.card_bookphoto {
   /* Add shadows to create the "card" effect */
 
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    width: 250px;
+    width: 20%;
     padding: 2px;
     height: 400px;
+
+}
+.card_bookannotation {
+  /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 70%;
+    padding: 2px;
+    height: 400px;
+    position: relative;
+    left: 300px;
+    bottom: 400px;
+    font-size: 16px;
 
 }

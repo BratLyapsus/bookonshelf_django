@@ -11,15 +11,21 @@
 
            <h1>{{book.bookname}}</h1>
               <h2>{{book.writer}}</h2>
-                <h3>{{book.genre}}</h3>
-                <h4>{{book.year}}</h4>
-
-                    <div class="card_bookdetails">
-                    <img src="{{ book.cover.url }}" alt="Book Cover">
-                    <div class="container">
-
+                <h3>{{book.genre}}</h3> <br><br>
+                <div class="book_details">
+                    <div class="card_bookphoto">
+                        <img src="{{ book.cover.url }}" alt="Book Cover">
                     </div>
+                    <div class="card_bookannotation">
+                        <p>{{ book.bookannotation }}</p>
+
                 </div>
+
+
+
+
+
+
 
 
     </div>
