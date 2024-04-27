@@ -1,0 +1,30 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Все книги{% endblock %}
+
+{% block aside_links %}
+{% include 'main/admin_links.html'%}
+{% endblock %}
+
+{% block content %}
+    <div class="features_books">
+
+       <h1>Все книги</h1>
+        <div class="book_list">
+
+            {% for book in books %}
+                <ul>
+                <li>
+                    <div class="card">
+                    <img src="{{ book.cover.url }}" alt="Book Cover">
+                    <div class="container">
+                        <a href="{% url 'admin_bookdetails' book_id=book.id %}" class="book_link">Перейти к книге</a>
+                    </div>
+                </div>
+                </li>
+                </ul>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
