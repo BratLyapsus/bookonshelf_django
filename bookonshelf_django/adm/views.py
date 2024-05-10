@@ -59,6 +59,7 @@ def add_writer(request):
     }
     return render(request, "adm/addwriter.html", data)
 
+@has_admin_permission
 def add_genre(request):
     error = ''
     if request.method == 'POST':
@@ -77,6 +78,8 @@ def add_genre(request):
 
     }
     return render(request, "adm/addgenre.html", data)
+
+@has_admin_permission
 def add_language(request):
     error = ''
     if request.method == 'POST':
@@ -96,16 +99,12 @@ def add_language(request):
     }
     return render(request, "adm/addlanguage.html", data)
 
-#def book_search(request):
-
-#    booksearchform = BookSearchForm()
-#    data = {
-#        'booksearchform': booksearchform
-#    }
-#    return render(request, "adm/booksearch.html", data)
+@has_admin_permission
 def book_details(request, book_id):
     book = get_object_or_404(Books, id=book_id)
     return render(request, 'adm/bookdetails.html', {'book': book})
+
+@has_admin_permission
 def book_search(request):
     data = {}  # Initialize empty data dictionary
     error = ''
@@ -135,6 +134,7 @@ def book_search(request):
     # Return the rendered template with the populated data dictionary
     return render(request, "adm/booksearch.html", data)
 
+@has_admin_permission
 def book_delete(request, book_id):
     # Step 1: Retrieve the book object using book_id
     book = get_object_or_404(Books, id=book_id)
@@ -144,6 +144,8 @@ def book_delete(request, book_id):
 
     # Step 3: Redirect to a new page or render a template
     return redirect('admin_allbooks')  # Redirect to a specific URL
+
+@has_admin_permission
 def book_edit(request, book_id):
     book = get_object_or_404(Books, id=book_id)
     error = ''

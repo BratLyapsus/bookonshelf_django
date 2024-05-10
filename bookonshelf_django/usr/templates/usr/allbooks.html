@@ -3,7 +3,7 @@
 {% block title %}Все книги{% endblock %}
 
 {% block aside_links %}
-{% include 'main/admin_links.html'%}
+{% include 'main/user_links.html'%}
 {% endblock %}
 
 {% block content %}
@@ -18,7 +18,8 @@
                     <div class="card">
                     <img src="{{ book.cover.url }}" alt="Book Cover">
                     <div class="container">
-                        <a href="{% url 'admin_bookdetails' book_id=book.id %}" class="book_link">Перейти к книге</a>
+                        <br><p>{{ book.bookamount }}</p><br>
+                        <a href="{% url 'user_bookdetails' book_id=book.id %}" class="book_link">Перейти к книге</a>
                     </div>
                 </div>
                 </li>
