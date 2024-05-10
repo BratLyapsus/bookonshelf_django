@@ -1,0 +1,31 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Мои книги{% endblock %}
+
+{% block aside_links %}
+{% include 'main/user_links.html'%}
+{% endblock %}
+
+{% block content %}
+    <div class="features_books">
+
+       <h1>Мои книги</h1>
+<div class="book_list">
+    {% for borrowed_book in mybooks %}
+    <ul>
+        <li>
+            <div class="card">
+                <img src="{{ borrowed_book.book.cover.url }}" alt="Book Cover">
+                <div class="container">
+
+                    <!-- Add any other book details you want to display -->
+                    <a href="" class="book_link">Сдать книгу</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+    {% endfor %}
+</div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Все книги{% endblock %}
+
+{% block aside_links %}
+{% include 'main/user_links.html'%}
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="features_books">
+
+           <h1>{{book.bookname}}</h1>
+            <h3>{{book.writer}}</h3>
+            <h2>{{book.genre}}</h2> <br><br>
+    <a href="" class="delete_link">Заказать</a>
+    <a href="" class="edit_link">Зарезервировать</a>
+                <div class="book_details">
+                    <div class="card_bookphoto">
+                        <img src="{{ book.cover.url }}" alt="Book Cover">
+                    </div>
+                    <div class="card_bookannotation">
+                        <p>{{ book.bookannotation }}</p>
+
+                </div>
+
+
+
+
+
+
+
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Результат поиска{% endblock %}
+{% block aside_links %}
+{% include 'main/user_links.html'%}
+{% endblock %}
+
+{% block content %}
+<div class="features_books">
+    <h1>Поиск</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>{{ form.query}}</p>
+        <button class=" btn btn-success" type="submit">Искать</button>
+    </form>
+       <h2>Результат поиска</h2>
+    <div class="book_list">
+    {% if books %}
+            {% for book in books %}
+                <ul>
+                <li>
+                    <div class="card">
+                    <img src="{{ book.cover.url }}" alt="Book Cover">
+                    <div class="container">
+                        <a href="{% url 'user_bookdetails' book_id=book.id %}" class="book_link">Перейти к книге</a>
+                    </div>
+                </div>
+                </li>
+                </ul>
+            {% endfor %}
+{% else %}
+    <p>{{ error }}</p>
+    {% endif %}
+    </div>
+</div>
+
+
+
+{% endblock %}
