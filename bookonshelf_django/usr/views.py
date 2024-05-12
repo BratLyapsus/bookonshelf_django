@@ -63,20 +63,29 @@ def book_borrow(request, book_id):
         try:
             book = Books.objects.get(pk=book_id)
             user = request.user
+
             if book.bookamount > 0:
-                Books.objects.filter(pk=book_id).update(bookamount=F('bookamount') -0)
+                Books.objects.filter(pk=book_id).update(bookamount=F('bookamount') - 1)
                 borrowed_book = BorrowedBooks(book=book, user=user)
                 borrowed_book.save()
-                message = request.session.get('Книга готова, вы можете ее забрать')
+
+                # Use Django's messages framework for consistent messaging
+                messages.success(request, 'Книга готова. Вы можете ее забрать.')
+
                 return redirect('user_mybooks')
             else:
-                messages.error(request, 'Книга в данный момент недоступна. Вы можете ее зарезервировать')
+                # Use messages for clear feedback on unavailable books
+                messages.warning(request, 'Книга в данный момент недоступна.')
+
                 return redirect('user_bookdetails', book_id=book_id)
-        except Books.DoesNotExist:
-            messages.error(request, 'Book not found.')
-        return redirect('user_mybooks')  # Redirect back to book details
+        except ObjectDoesNotExist:
+            # Handle book not found exception appropriately (e.g., error message)
+            messages.error(request, 'Книга не найдена.')  # Error message (Russian)
+
+        return redirect('user_mybooks')  # Redirect back to book details (optional)
+
     else:
-        return redirect('user_bookdetails', book_id=book_id)  # In case of non-POST requests, redirect to book details
+        return redirect('user_bookdetails', book_id=book_id)  # Redirect on non-POST requests
 
 
 def book_reserve(book_id, user_id):

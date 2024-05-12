@@ -13,14 +13,13 @@
 
 <div class="features_books">
 
-    {% with messages as messages %}  {% if messages %}
-    <ul class="messages">
-      {% for message in messages %}
-        <li class="{{ message.tags }}">{{ message }}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
+    <h1>{{ message }}</h1>
+{% with messages as messages %}  {% if messages %}
+                {% for message in messages %}
+                <p><b>{{ message }}</b></p>
+                {% endfor %}
+        {% endif %}
+        {% endwith %}
    <h1>Взятые книги</h1>
    <div class="book_list">
        {% for borrowedbook in borrowedbooks %}
