@@ -14,24 +14,26 @@
            <h1>{{book.bookname}}</h1>
             <h3>{{book.writer}}</h3>
             <h2>{{book.genre}}</h2> <br><br>
+
+        <form method="POST" action="{% url 'user_borrowbook' book.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="book_id" value="{{ book.id }}">
+        <button type="submit">Заказать</button>
+</form>
     <a href="" class="delete_link">Заказать</a>
     <a href="" class="edit_link">Зарезервировать</a>
                 <div class="book_details">
                     <div class="card_bookphoto">
                         <img src="{{ book.cover.url }}" alt="Book Cover">
                     </div>
+
                     <div class="card_bookannotation">
                         <p>{{ book.bookannotation }}</p>
-
+                        <br><p>{{ book.bookamount }}</p><br>
+                        <p>{{ messages }}</p>
+                    </div>
                 </div>
-
-
-
-
-
-
-
-
     </div>
 
 {% endblock %}
+

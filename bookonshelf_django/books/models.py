@@ -69,6 +69,19 @@ class BorrowedBooks(models.Model):
         return str(self.book.bookname)
 
     class Meta:
-        verbose_name = 'Ваша книга'
-        verbose_name_plural = 'Ваши книги'
+        verbose_name = 'Книги у вас'
+        verbose_name_plural = 'Книги у вас'
+
+class ReservedBooks(models.Model):
+    book = models.ForeignKey(Books, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        #return self.registrationnumber
+        return str(self.book.bookname)
+
+    class Meta:
+        verbose_name = 'Зарезервированная книга'
+        verbose_name_plural = 'Зарезервированные книги'
+
 

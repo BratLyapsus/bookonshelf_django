@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.db import transaction
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 #from .forms import LoginForm
 from books.forms import WritersForm, BooksForm, GenresForm, LanguagesForm, BookSearchForm
-from books.models import Writers, Books, Genres, Languages, BorrowedBooks
-from django.db.models import Q
+from books.models import Writers, Books, Genres, Languages, BorrowedBooks, ReservedBooks
+from django.db.models import Q, F
 from main import views as main_views
 from main.decorators import has_admin_permission, has_user_permission
+from django.contrib import messages  # Import messages
 
 @has_user_permission
 def all_books(request):
@@ -54,31 +56,39 @@ def book_details(request, book_id):
     return render(request, 'usr/bookdetails.html', {'book': book})
 
 @has_user_permission
-def book_borrow(book_id, user_id):
-    try:
-        with transaction.atomic():
-            book = Books.objects.select_for_update().get(id=book_id)
+
+
+def book_borrow(request, book_id):
+    if request.method == 'POST':
+        try:
+            book = Books.objects.get(pk=book_id)
+            user = request.user
             if book.bookamount > 0:
-                borrowed_book = BorrowedBooks.objects.create(book=book, user_id=user_id)
-                book.bookamount -= 1
-                book.save()
-                # Commit the transaction explicitly
-                transaction.commit()
-                return borrowed_book
+                Books.objects.filter(pk=book_id).update(bookamount=F('bookamount') -0)
+                borrowed_book = BorrowedBooks(book=book, user=user)
+                borrowed_book.save()
+                message = request.session.get('Книга готова, вы можете ее забрать')
+                return redirect('user_mybooks')
             else:
-                # If book is not available, raise an exception with a descriptive message
-                raise Exception("Book is not available for borrowing")
-    except Books.DoesNotExist:
-        return None  # Book does not exist
-    except Exception as e:
-        # Rollback the transaction in case of any exception
-        transaction.rollback()
-        raise e  # Re-raise the exception for further handling
+                messages.error(request, 'Книга в данный момент недоступна. Вы можете ее зарезервировать')
+                return redirect('user_bookdetails', book_id=book_id)
+        except Books.DoesNotExist:
+            messages.error(request, 'Book not found.')
+        return redirect('user_mybooks')  # Redirect back to book details
+    else:
+        return redirect('user_bookdetails', book_id=book_id)  # In case of non-POST requests, redirect to book details
+
+
+def book_reserve(book_id, user_id):
+    return redirect('user_mybooks')
 
 has_user_permission
 def mybooks(request):
-    mybooks = BorrowedBooks.objects.all()
+    user = request.user
+    borrowedbooks = BorrowedBooks.objects.filter(user=user)
+    reservedbooks = ReservedBooks.objects.filter(user=user)
     data = {
-        'mybooks': mybooks,
+        'borrowedbooks': borrowedbooks,
+        'reservedbooks': reservedbooks,
     }
     return render(request, "usr/mybooks.html", data)
