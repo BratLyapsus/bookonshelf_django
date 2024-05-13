@@ -9,6 +9,7 @@ from django.db.models import Q, F
 from main import views as main_views
 from main.decorators import has_admin_permission, has_user_permission
 from django.contrib import messages  # Import messages
+from django.core.exceptions import ObjectDoesNotExist
 
 @has_user_permission
 def all_books(request):
@@ -101,3 +102,21 @@ def mybooks(request):
         'reservedbooks': reservedbooks,
     }
     return render(request, "usr/mybooks.html", data)
+def book_return(request, book_id):
+    if request.method == 'POST':
+        try:
+            # Get the book from the Books table
+            book = Books.objects.get(pk=book_id)
+            # Update the bookamount
+            Books.objects.filter(pk=book_id).update(bookamount=F('bookamount') + 1)
+            # Check if the book is borrowed by the user
+            borrowed_book = BorrowedBooks.objects.get(book_id=book_id, user=request.user)
+            # Delete the borrowed book entry
+            borrowed_book.delete()
+            # Display success message
+            messages.success(request, 'Книга успешно возвращена.')
+        except ObjectDoesNotExist:
+            # Handle the case where the book is not borrowed by the user
+            messages.error(request, 'У вас нет этой книги в аренде.')
+        # Redirect back to the page displaying borrowed books
+        return redirect('user_mybooks')

@@ -9,4 +9,5 @@ urlpatterns = [
     path('usr/borrowbook/<int:book_id>/', views.book_borrow, name='user_borrowbook'),
     path('usr/reservebook/<int:book_id>/', views.book_reserve, name='user_reservebook'),
     path('usr/mybooks', views.mybooks, name='user_mybooks'),
+    path('usr/returnbook/<int:book_id>/', views.book_return, name='user_returnbook'),
 ]
