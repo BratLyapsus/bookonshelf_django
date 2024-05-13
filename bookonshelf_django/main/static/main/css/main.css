@@ -247,13 +247,6 @@ main .features_books {
     top: 100px;
 }
 
-.message{
-    width: 100%;
-    height: 30px;
-    position: relative;
-    top: 0px;
+.fa-message-text {
     font-size: 28px;
-    color: crimson;
-    text-align: right;
-
 }
