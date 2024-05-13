@@ -8,18 +8,20 @@
 
 {% block content %}
 
-
+    <div class="message">
+        {% with messages as messages %}  {% if messages %}
+            {% for message in messages %}
+                <i class="fa-solid fa-message-text">{{ message }}</i>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
     <div class="features_books">
 
            <h1>{{book.bookname}}</h1>
             <h3>{{book.writer}}</h3>
             <h2>{{book.genre}}</h2> <br><br>
-            {% with messages as messages %}  {% if messages %}
-                {% for message in messages %}
-                <p><b>{{ message }}</b></p>
-                {% endfor %}
-        {% endif %}
-        {% endwith %}
+
 
         <form method="POST" action="{% url 'user_borrowbook' book.id %}">
         {% csrf_token %}
@@ -36,8 +38,12 @@
                     <div class="card_bookannotation">
                         <p>{{ book.bookannotation }}</p>
                         <br><p>{{ book.bookamount }}</p><br>
+
                     </div>
                 </div>
+
+
+
     </div>
 
 {% endblock %}

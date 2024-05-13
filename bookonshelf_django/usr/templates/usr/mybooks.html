@@ -8,18 +8,16 @@
 {% endblock %}
 
 {% block content %}
-
-
-
-<div class="features_books">
-
-    <h1>{{ message }}</h1>
-{% with messages as messages %}  {% if messages %}
-                {% for message in messages %}
-                <p><b>{{ message }}</b></p>
-                {% endfor %}
+    <div class="message">
+        {% with messages as messages %}  {% if messages %}
+            {% for message in messages %}
+                <i class="fa-solid fa-message-text">{{ message }}</i>
+            {% endfor %}
         {% endif %}
         {% endwith %}
+    </div>
+
+<div class="features_books">
    <h1>Взятые книги</h1>
    <div class="book_list">
        {% for borrowedbook in borrowedbooks %}
