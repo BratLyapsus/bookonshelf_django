@@ -24,17 +24,19 @@
        {% for borrowedbook in borrowedbooks %}
 <ul>
     <li>
-        <div class="card">
+            <div class="card">
             <img src="{{ borrowedbook.book.cover.url }}" alt="Book Cover">
+
             <div class="container">
-                <form method="POST" action="{% url 'user_returnbook' borrowedbook.book.id %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="book_id" value="{{ borrowedbook.book.id }}">
-                    <button type="submit">Вернуть</button>
-                </form>
-            </div>
+
+
         </div>
     </li>
+                    <form method="POST" action="{% url 'user_returnbook' borrowedbook.book.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="book_id" value="{{ borrowedbook.book.id }}">
+                    <button class=" btn btn-success"type="submit" >Вернуть</button>
+                    </form>
 </ul>
 {% endfor %}
    </div>

@@ -1,0 +1,30 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Все книги{% endblock %}
+
+{% block aside_links %}
+{% include 'main/user_links.html'%}
+{% endblock %}
+
+{% block content %}
+    <div class="features_books">
+
+       <h1>Моя история</h1>
+        <div class="book_list">
+
+            {% for book in bookshistory %}
+                <ul>
+                <li>
+                    <div class="card">
+                    <img src="{{ book.book.cover.url }}" alt="Book Cover">
+                    <div class="container">
+
+                    </div>
+                </div>
+                </li>
+                </ul>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

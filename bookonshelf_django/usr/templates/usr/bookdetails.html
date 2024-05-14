@@ -21,15 +21,25 @@
             {% endfor %}
         {% endif %}
         {% endwith %}
+<div  class="bookaction"><!-- style="display:flex">-->
 
-
-        <form method="POST" action="{% url 'user_borrowbook' book.id %}">
+    <form method="POST" action="{% url 'user_borrowbook' book.id %}">
         {% csrf_token %}
         <input type="hidden" name="book_id" value="{{ book.id }}">
-        <button type="submit">Заказать</button>
-</form>
+        <button class=" btn btn-warning"type="submit">Заказать</button>
+      </form>
 
+    <form method="POST" action="{% url 'user_reservebook' book.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="book_id" value="{{ book.id }}">
+        <button class=" btn btn-warning"type="submit">Зарезервировать</button>
+    </form>
 
+{% comment %}
+    <button class="btn btn-warning" onclick="borrowBook({{ book.id }})">Заказать</button>
+    <button class="btn btn-warning" onclick="reserveBook({{ book.id }})">Зарезервировать</button>
+{% endcomment %}
+</div>
 
 
                 <div class="book_details">
@@ -50,3 +60,28 @@
 
 {% endblock %}
 
+<!--
+<script>
+    function borrowBook(bookId) {
+        sendRequest(bookId, '{% url "user_borrowbook" %}');
+    }
+
+    function reserveBook(bookId) {
+        sendRequest(bookId, '{% url "user_reservebook" %}');
+    }
+
+    function sendRequest(bookId, url) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url + bookId, true);
+        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Handle successful response, if needed
+                window.location.reload(); // For example, reload the page after successful request
+            }
+        };
+        xhr.send();
+    }
+</script>
+
+-->

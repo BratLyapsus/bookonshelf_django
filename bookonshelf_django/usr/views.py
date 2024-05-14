@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 #from .forms import LoginForm
 from books.forms import WritersForm, BooksForm, GenresForm, LanguagesForm, BookSearchForm
-from books.models import Writers, Books, Genres, Languages, BorrowedBooks, ReservedBooks
+from books.models import Writers, Books, Genres, Languages, BorrowedBooks, ReservedBooks, BooksHistory
 from django.db.models import Q, F
 from main import views as main_views
 from main.decorators import has_admin_permission, has_user_permission
@@ -64,11 +64,18 @@ def book_borrow(request, book_id):
         try:
             book = Books.objects.get(pk=book_id)
             user = request.user
+            # Check if the user has already borrowed the book
+            if BorrowedBooks.objects.filter(book=book, user=user).exists():
+                messages.warning(request, 'У вас уже есть эта книга.')
+                return redirect('user_mybooks')
+
 
             if book.bookamount > 0:
                 Books.objects.filter(pk=book_id).update(bookamount=F('bookamount') - 1)
                 borrowed_book = BorrowedBooks(book=book, user=user)
                 borrowed_book.save()
+                bookhistory = BooksHistory(book=book, user=user)
+                bookhistory.save()
 
                 # Use Django's messages framework for consistent messaging
                 messages.success(request, 'Книга готова. Вы можете ее забрать.')
@@ -89,8 +96,47 @@ def book_borrow(request, book_id):
         return redirect('user_bookdetails', book_id=book_id)  # Redirect on non-POST requests
 
 
-def book_reserve(book_id, user_id):
-    return redirect('user_mybooks')
+
+def book_reserve(request, book_id):
+    if request.method == 'POST':
+        try:
+            book = Books.objects.get(pk=book_id)
+            user = request.user
+
+            # Check if the user has already reserved the book
+            if ReservedBooks.objects.filter(book=book, user=user).exists():
+                messages.warning(request, 'Вы уже зарезервировали эту книгу.')
+                return redirect('user_mybooks')
+
+            # Check if the user has already borrowed the book
+            if BorrowedBooks.objects.filter(book=book, user=user).exists():
+                messages.warning(request, 'У вас уже есть эта книга.')
+                return redirect('user_mybooks')
+
+            if book.bookamount == 0:
+                reserved_book = ReservedBooks(book=book, user=user)
+                reserved_book.save()
+
+                # Use Django's messages framework for consistent messaging
+                messages.success(request,
+                                 'Вы зарезервировали книгу. Как только она будет доступна, вы сможете ее забрать')
+
+                return redirect('user_mybooks')
+            else:
+                # Use messages for clear feedback on unavailable books
+                messages.warning(request, 'Книга в данный момент доступна, вы можете ее заказать.')
+
+                return redirect('user_bookdetails', book_id=book_id)
+        except ObjectDoesNotExist:
+            # Handle book not found exception appropriately (e.g., error message)
+            messages.error(request, 'Книга не найдена.')  # Error message (Russian)
+
+        return redirect('user_mybooks')  # Redirect back to book details (optional)
+
+    else:
+
+        return redirect('user_bookdetails', book_id=book_id)  # Redirect on non-POST requests
+
 
 has_user_permission
 def mybooks(request):
@@ -102,21 +148,57 @@ def mybooks(request):
         'reservedbooks': reservedbooks,
     }
     return render(request, "usr/mybooks.html", data)
+has_user_permission
+def bookshistory(request):
+    user = request.user
+    bookshistory = BooksHistory.objects.filter(user=user)
+    data = {
+        'bookshistory': bookshistory,
+    }
+    return render(request, "usr/bookshistory.html", data)
+
+
+has_user_permission
 def book_return(request, book_id):
     if request.method == 'POST':
         try:
-            # Get the book from the Books table
-            book = Books.objects.get(pk=book_id)
-            # Update the bookamount
-            Books.objects.filter(pk=book_id).update(bookamount=F('bookamount') + 1)
-            # Check if the book is borrowed by the user
-            borrowed_book = BorrowedBooks.objects.get(book_id=book_id, user=request.user)
-            # Delete the borrowed book entry
-            borrowed_book.delete()
-            # Display success message
-            messages.success(request, 'Книга успешно возвращена.')
+            with transaction.atomic():
+                # Get the book from the Books table
+                book = Books.objects.get(pk=book_id)
+
+                # Update the bookamount
+                Books.objects.filter(pk=book_id).update(bookamount=F('bookamount') + 1)
+
+                # Check if the book is borrowed by the user
+                borrowed_book = BorrowedBooks.objects.get(book_id=book_id, user=request.user)
+
+                # Delete the borrowed book entry
+                borrowed_book.delete()
+
+                # Display success message
+                messages.success(request, 'Книга успешно возвращена.')
+
+                # Check if there are reserved copies of this book
+                reserved_books = ReservedBooks.objects.filter(book=book)
+
+                if reserved_books.exists():
+                    # Get the first reserved book (earliest reservation)
+                    reserved_book = reserved_books.first()
+
+                    # Create a borrowed book entry for the reserved user
+                    borrowed_book = BorrowedBooks(book=book, user=reserved_book.user)
+                    borrowed_book.save()
+
+                    # Delete the reserved book entry
+                    reserved_book.delete()
+
+                    # Display a message indicating the book is borrowed by the reserved user
+                    messages.info(request,
+                                  f'Книга была автоматически выдана пользователю {borrowed_book.user.username}.')
+
         except ObjectDoesNotExist:
             # Handle the case where the book is not borrowed by the user
             messages.error(request, 'У вас нет этой книги в аренде.')
+
         # Redirect back to the page displaying borrowed books
         return redirect('user_mybooks')
