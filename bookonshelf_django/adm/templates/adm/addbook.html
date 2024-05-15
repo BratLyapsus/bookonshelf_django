@@ -8,16 +8,13 @@
 
 {% block content %}
 
-
-
-
 <div class="features">
-    <h1>Добавить книгу</h1>
-                <div class="add_links">
-     <a href="{% url 'admin_addwriter' %}" class="add_link">Добавить автора</a>
-    <a href="{% url 'admin_addgenre' %}" class="add_link">Добавить жанр</a>
-    <a href="{% url 'admin_addlanguage' %}" class="add_link">Добавить язык</a>
+    <div class="add_links">
+        <a href="{% url 'admin_addwriter' %}" class="book_link">Добавить автора</a>
+        <a href="{% url 'admin_addgenre' %}" class="book_link">Добавить жанр</a>
+        <a href="{% url 'admin_addlanguage' %}" class="book_link">Добавить язык</a>
     </div>
+    <h1>Добавить книгу</h1>
         <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ booksform.bookname }}<br>

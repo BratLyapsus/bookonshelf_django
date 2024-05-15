@@ -44,7 +44,7 @@ def add_writer(request):
         writersform = WritersForm(request.POST)
         if writersform.is_valid():
             writersform.save()
-            return redirect('admin_allbooks')
+            return redirect('admin_addbooks')
         else:
             error = 'Форма заполнена неверно'
     writersform = WritersForm()
@@ -66,7 +66,7 @@ def add_genre(request):
         genresform = GenresForm(request.POST)
         if genresform.is_valid():
             genresform.save()
-            return redirect('admin_allbooks')
+            return redirect('admin_addbooks')
         else:
             error = 'Форма заполнена неверно'
     genresform = GenresForm()
@@ -86,7 +86,7 @@ def add_language(request):
         languagesform = LanguagesForm(request.POST)
         if languagesform.is_valid():
             languagesform.save()
-            return redirect('admin_allbooks')
+            return redirect('admin_addbooks')
         else:
             error = 'Форма заполнена неверно'
     languagesform = LanguagesForm()

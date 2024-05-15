@@ -126,9 +126,9 @@ margin-top: 100px;
 
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-    width: 250px;
+    width: 200px;
     padding: 2px;
-    height: 450px;
+    height: 350px;
 
 }
 
@@ -187,7 +187,7 @@ main .features_books {
 
     .book_link {
         color: black;
-        margin-top: 15px;
+        margin-top: 25px;
         border: darkblue 2px solid;
         border-radius: 5px;
         background-color: aqua;
@@ -212,6 +212,9 @@ main .features_books {
                     text-decoration: none;
                     transform: scale(1.05);
                 }
+.add_links{
+
+}
 
 .card_bookdetails {
     display: inline;
@@ -223,9 +226,9 @@ main .features_books {
 
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    width: 25%;
+    width: 20%;
     padding: 2px;
-    height: 500px;
+    height: 400px;
 
 }
 .card_bookannotation {
@@ -242,9 +245,9 @@ main .features_books {
 
 }
 .add_links{
-    position: absolute;
-    right: 600px;
-    top: 100px;
+    position: relative;
+    top: 5%;
+    text-align: right;
 }
 
 .fa-message-text {
@@ -255,7 +258,6 @@ main .features_books {
     border-radius: 5px;
 }
 
-.bookactions {
-    display: inline;
+.bookaction {
 
 }
