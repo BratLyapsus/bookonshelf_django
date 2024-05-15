@@ -126,9 +126,9 @@ margin-top: 100px;
 
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-    width: 200px;
+    width: 250px;
     padding: 2px;
-    height: 350px;
+    height: 450px;
 
 }
 
@@ -187,7 +187,7 @@ main .features_books {
 
     .book_link {
         color: black;
-        margin-top: 25px;
+        margin-top: 15px;
         border: darkblue 2px solid;
         border-radius: 5px;
         background-color: aqua;
@@ -223,9 +223,9 @@ main .features_books {
 
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    width: 20%;
+    width: 25%;
     padding: 2px;
-    height: 400px;
+    height: 500px;
 
 }
 .card_bookannotation {
@@ -255,6 +255,7 @@ main .features_books {
     border-radius: 5px;
 }
 
-.bookaction {
+.bookactions {
+    display: inline;
 
 }

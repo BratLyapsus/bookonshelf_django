@@ -60,7 +60,6 @@ def book_details(request, book_id):
 
 
 def book_borrow(request, book_id):
-    if request.method == 'POST':
         try:
             book = Books.objects.get(pk=book_id)
             user = request.user
@@ -92,13 +91,11 @@ def book_borrow(request, book_id):
 
         return redirect('user_mybooks')  # Redirect back to book details (optional)
 
-    else:
-        return redirect('user_bookdetails', book_id=book_id)  # Redirect on non-POST requests
+
 
 
 
 def book_reserve(request, book_id):
-    if request.method == 'POST':
         try:
             book = Books.objects.get(pk=book_id)
             user = request.user
@@ -133,9 +130,7 @@ def book_reserve(request, book_id):
 
         return redirect('user_mybooks')  # Redirect back to book details (optional)
 
-    else:
 
-        return redirect('user_bookdetails', book_id=book_id)  # Redirect on non-POST requests
 
 
 has_user_permission
@@ -160,7 +155,6 @@ def bookshistory(request):
 
 has_user_permission
 def book_return(request, book_id):
-    if request.method == 'POST':
         try:
             with transaction.atomic():
                 # Get the book from the Books table

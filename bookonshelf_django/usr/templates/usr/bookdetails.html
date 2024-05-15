@@ -14,6 +14,10 @@
            <h1>{{book.bookname}}</h1>
             <h3>{{book.writer}}</h3>
             <h2>{{book.genre}}</h2> <br><br>
+    <div>
+        <a href="{% url 'user_borrowbook' book.id %}" class="book_link">Заказать</a>
+        <a href="{% url 'user_reservebook' book.id %}" class="book_link">Зарезервировать</a>
+    </div>
 
         {% with messages as messages %}  {% if messages %}
             {% for message in messages %}
@@ -21,30 +25,14 @@
             {% endfor %}
         {% endif %}
         {% endwith %}
-<div  class="bookaction"><!-- style="display:flex">-->
-
-    <form method="POST" action="{% url 'user_borrowbook' book.id %}">
-        {% csrf_token %}
-        <input type="hidden" name="book_id" value="{{ book.id }}">
-        <button class=" btn btn-warning"type="submit">Заказать</button>
-      </form>
-
-    <form method="POST" action="{% url 'user_reservebook' book.id %}">
-        {% csrf_token %}
-        <input type="hidden" name="book_id" value="{{ book.id }}">
-        <button class=" btn btn-warning"type="submit">Зарезервировать</button>
-    </form>
-
-{% comment %}
-    <button class="btn btn-warning" onclick="borrowBook({{ book.id }})">Заказать</button>
-    <button class="btn btn-warning" onclick="reserveBook({{ book.id }})">Зарезервировать</button>
-{% endcomment %}
-</div>
-
 
                 <div class="book_details">
                     <div class="card_bookphoto">
                         <img src="{{ book.cover.url }}" alt="Book Cover">
+                         <div class="container">
+
+                             </ul>
+                    </div>
                     </div>
 
                     <div class="card_bookannotation">
