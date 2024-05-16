@@ -10,11 +10,12 @@
 
 <div class="features">
     <h1>Добавить жанр</h1>
+    <p>{{ error }}</p>
+
     <form method="post">
         {% csrf_token %}
         {{ genresform.genre }}<br>
         <button class=" btn btn-success" type="submit">Добавить жанр</button>
     </form>
-
 </div>
 {% endblock %}

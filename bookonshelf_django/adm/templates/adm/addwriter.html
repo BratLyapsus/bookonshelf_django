@@ -10,6 +10,7 @@
 
 <div class="features">
     <h1>Добавить писателя</h1>
+    <p>{{ error }}</p>
     <form method="post">
         {% csrf_token %}
         {{ writersform.writername }}<br>

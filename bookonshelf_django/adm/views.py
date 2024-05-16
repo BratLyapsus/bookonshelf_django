@@ -23,17 +23,20 @@ def add_book(request):
     if request.method == 'POST':
         booksform = BooksForm(request.POST, request.FILES)
         if booksform.is_valid():
-            booksform.save()
-            return redirect('admin_allbooks') 
-        else: 
+            bookname = booksform.cleaned_data['bookname']
+            writername = booksform.cleaned_data['writer']
+            if Books.objects.filter(bookname=bookname, writer=writername).exists():
+                error = 'Такая книга уже существует'
+            else:
+                booksform.save()
+                return redirect('admin_allbooks')
+        else:
             error = 'Форма заполнена неверно'
-    booksform = BooksForm()
-    
+    else:
+        booksform = BooksForm()
     data = {
-        
-        'booksform': booksform,
-        'error': error
-        
+                'booksform': booksform,
+                'error': error
         } 
     return render(request, "adm/addbook.html", data)
 
@@ -43,19 +46,21 @@ def add_writer(request):
     if request.method == 'POST':
         writersform = WritersForm(request.POST)
         if writersform.is_valid():
-            writersform.save()
-            return redirect('admin_addbooks')
+            writer_name = writersform.cleaned_data['writername']
+            # Check if a writer with the same name already exists
+            if Writers.objects.filter(writername=writer_name).exists():
+                error = 'Такой писатель уже существует.'
+            else:
+                writersform.save()
+                return redirect('admin_addbooks')
         else:
             error = 'Форма заполнена неверно'
-    writersform = WritersForm()
-
-
+    else:
+        writersform = WritersForm()
 
     data = {
-
         'writersform': writersform,
         'error': error
-
     }
     return render(request, "adm/addwriter.html", data)
 
@@ -65,8 +70,12 @@ def add_genre(request):
     if request.method == 'POST':
         genresform = GenresForm(request.POST)
         if genresform.is_valid():
-            genresform.save()
-            return redirect('admin_addbooks')
+            genre = genresform.cleaned_data['genre']
+            if Genres.objects.filter(genre=genre).exists():
+                error = 'Такой жанр уже существует'
+            else:
+                genresform.save()
+                return redirect('admin_addbooks')
         else:
             error = 'Форма заполнена неверно'
     genresform = GenresForm()
@@ -84,21 +93,23 @@ def add_language(request):
     error = ''
     if request.method == 'POST':
         languagesform = LanguagesForm(request.POST)
-        if languagesform.is_valid():
-            languagesform.save()
-            return redirect('admin_addbooks')
+        if languagesform.is_valid():  # Validate the form
+            language = languagesform.cleaned_data['language']
+            if Languages.objects.filter(language=language).exists():
+                error = 'Такой язык уже существует'
+            else:
+                languagesform.save()
+                return redirect('admin_addbooks')
         else:
             error = 'Форма заполнена неверно'
-    languagesform = LanguagesForm()
+    else:
+        languagesform = LanguagesForm()
 
     data = {
-
         'languagesform': languagesform,
         'error': error
-
     }
     return render(request, "adm/addlanguage.html", data)
-
 @has_admin_permission
 def book_details(request, book_id):
     book = get_object_or_404(Books, id=book_id)
