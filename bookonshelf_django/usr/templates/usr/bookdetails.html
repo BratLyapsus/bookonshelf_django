@@ -17,10 +17,15 @@
 
         {% with messages as messages %}  {% if messages %}
             {% for message in messages %}
-                <i class="fa-solid fa-message-text">{{ message }}</i>
+                    <div class="row justify-content-center">
+                <div class="alert alert-dark w-75 " role="alert">
+                 {{message }}
+                </div>
+                </div>
             {% endfor %}
         {% endif %}
         {% endwith %}
+
 
                 <div class="book_details">
                     <div class="card_bookphoto">

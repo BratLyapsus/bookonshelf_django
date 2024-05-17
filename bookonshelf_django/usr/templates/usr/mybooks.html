@@ -14,10 +14,15 @@
 
         {% with messages as messages %}  {% if messages %}
             {% for message in messages %}
-                <i class="fa-solid fa-message-text">{{ message }}</i>
+    <div class="row justify-content-center">
+                <div class="alert alert-dark w-75 " role="alert">
+                 {{message }}
+                </div>
+                </div>
             {% endfor %}
         {% endif %}
         {% endwith %}
+
 
 
    <div class="book_list">
@@ -27,7 +32,7 @@
         <div class="card">
             <img src="{{ borrowedbook.book.cover.url }}" alt="Book Cover">
             <div class="container">
-                <a href="{% url 'user_returnbook' borrowedbook.book.id %}" class="book_link">Вернуть</a>
+                <a style="font-size: 15px;" class="btn btn-info btn-sm "  href="{% url 'user_returnbook' borrowedbook.book.id %}" class="book_link">Вернуть</a>
             </div>
         </div>
     </li>
