@@ -9,10 +9,11 @@
 {% block content %}
 
 <div class="features">
+
     <div class="add_links">
-        <a href="{% url 'admin_addwriter' %}" class="book_link">Добавить автора</a>
-        <a href="{% url 'admin_addgenre' %}" class="book_link">Добавить жанр</a>
-        <a href="{% url 'admin_addlanguage' %}" class="book_link">Добавить язык</a>
+        <a  class="btn btn-info btn-sm customSizeButton2 "  href="{% url 'admin_addwriter' %}" class="book_link">Добавить автора</a>
+        <a  class="btn btn-info btn-sm customSizeButton2 "  href="{% url 'admin_addgenre' %}" class="book_link">Добавить жанр</a>
+        <a  class="btn btn-info btn-sm customSizeButton2 "  href="{% url 'admin_addlanguage' %}" class="book_link">Добавить язык</a>
     </div>
     <h1>Добавить книгу</h1>
     <p>{{ error }}</p>

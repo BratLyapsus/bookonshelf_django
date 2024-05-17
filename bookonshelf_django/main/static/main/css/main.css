@@ -261,3 +261,13 @@ main .features_books {
 .bookaction {
 
 }
+
+.customSizeButton1{
+    font-size: 15px;
+    margin-left: -8px;
+    margin-right: 2px;
+}
+
+.customSizeButton2{
+        font-size: 15px;
+}

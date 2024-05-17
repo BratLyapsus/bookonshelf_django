@@ -14,11 +14,14 @@
            <h1>{{book.bookname}}</h1>
             <h3>{{book.writer}}</h3>
             <h2>{{book.genre}}</h2> <br><br>
-    <a href="{% url 'admin_deletebook' book_id=book.id %}" class="delete_link">Удалить</a>
-    <a href="{% url 'admin_editbook' book_id=book.id %}" class="edit_link">Редактировать</a>
                 <div class="book_details">
                     <div class="card_bookphoto">
                         <img src="{{ book.cover.url }}" alt="Book Cover">
+                        <div class="container justify-content-center w-100" style="display: flex; margin-top:0px;">
+
+        <a style="margin:0px 15px 0px -15px;" class="btn btn-danger btn-sm customSizeButton1 " href="{% url 'admin_deletebook' book_id=book.id %}">Удалить</a>
+        <a  class="btn btn-warning btn-sm customSizeButton2 " href="{% url 'admin_editbook' book_id=book.id %}" >Редактировать</a>
+                    </div>
                     </div>
                     <div class="card_bookannotation">
                         <p>{{ book.bookannotation }}</p>
