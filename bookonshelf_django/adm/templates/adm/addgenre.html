@@ -7,12 +7,10 @@
 {% endblock %}
 
 {% block content %}
-
-<div class="features">
-    <h1>Добавить жанр</h1>
-    <p>{{ error }}</p>
-
+<div class="addbook">
     <form method="post">
+         <h1>Добавить жанр</h1><br><br><br>
+        <p>{{ error }}</p>
         {% csrf_token %}
         {{ genresform.genre }}<br>
         <button class=" btn btn-success" type="submit">Добавить жанр</button>

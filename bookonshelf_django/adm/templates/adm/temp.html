@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% comment %}
+    {% extends 'main/layout.html' %}
+
+{% block title %}Добавить книгу{% endblock %}
+
+{% block aside_links %}
+{% include 'main/admin_links.html'%}
+{% endblock %}
+
+{% block content %}
+
+<div class="features">
+
+    <div class="add_links">
+        <a  class="btn btn-info btn-sm customSizeButton2 "  href="{% url 'admin_addwriter' %}" class="book_link">Добавить автора</a>
+        <a  class="btn btn-info btn-sm customSizeButton2 "  href="{% url 'admin_addgenre' %}" class="book_link">Добавить жанр</a>
+        <a  class="btn btn-info btn-sm customSizeButton2 "  href="{% url 'admin_addlanguage' %}" class="book_link">Добавить язык</a>
+    </div>
+    <h1>Добавить книгу</h1>
+    <p>{{ error }}</p>
+        <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ booksform.bookname }}<br>
+        {{ booksform.writer }}<br>
+        {{ booksform.genre }}<br>
+        {{ booksform.language }}<br>
+        {{ booksform.pageamount }}<br>
+        {{ booksform.bookamount }}<br>
+        {{ booksform.registrationnumber }}<br>
+        {{ booksform.bookannotation }}<br>
+        {{ booksform.cover }}<br>
+        <button class=" btn btn-success" type="submit">Добавить книгу</button>
+    </form>
+</div>
+{% endblock %}
+
+{% endcomment %}
+</body>
+</html>

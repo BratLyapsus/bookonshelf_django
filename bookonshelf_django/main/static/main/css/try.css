@@ -50,33 +50,18 @@ aside {
                 text-decoration: none;
                 transform: scale(1.05);
             }
-
 main {
     float: right;
     width: 80%;
 }
 
-main .features {
+main .features_info {
     float: left;
     color: #fff;
-    margin-top: 20px;
-    text-align: center;
-    width: 100%;
-}
-
-    main .features h1 {
-        float: left;
-        font-size: 50px;
-        width: 100%;
-    }
-
-    main .features p {
-        max-width: 800px;
-        margin: 20px auto
-    }
-
-main .features_info {
+    margin-top: 50px;
+    margin-left: 22%;
     text-align: left;
+    width: 75%;
 }
 
     main .features_info h1 {
@@ -84,9 +69,13 @@ main .features_info {
         text-align: center;
     }
 
-.login {
-    width: 30%;
-    margin-left: 35%;
+main .features_login {
+    float: left;
+    color: #fff;
+    margin-top: 50px;
+    margin-left: 22%;
+    text-align: center;
+    width: 75%;
 }
 
     main .features_login h1 {
@@ -110,36 +99,9 @@ main .features_info {
     font-size: 12px;
 }
 
-.booksearch {
-    width: 30%;
-    margin-left: 30%;
-}
-
-.addbook {
-    width: 30%;
-    margin-left: 30%;
-}
-
-.booksearch_list {
-text-align: left;
-
-}
-.booksearch_list ul {
-    display: inline-block;
-    list-style: none;
-    width: 200px;
-    margin: 20px;
-
-}
-.booksearch_list li {
-
-    width: 200px;
-}
-.alert-dark {
-    margin-left: 20%;
-}
 form {
-    width: 100%;
+    width: 30%;
+    margin-left: 35%;
     margin-top: 20px;
 }
 .BookSearchForm {
@@ -172,7 +134,7 @@ margin-top: 100px;
 }
 
 .book_list {
-text-align: center;
+text-align: left;
 
 }
 .book_list ul {
@@ -190,14 +152,14 @@ main .features_books {
     float: left;
     color: #fff;
     margin-top: 20px;
+    margin-left: 22%;
     text-align: center;
-    width: 100%;
+    width: 78%;
 }
 
     main .features_books  h1 {
         font-size: 50px;
         width:100%;
-        text-align: center;
     }
     main .features_books  h2 {
         font-size: 25px;
@@ -295,4 +257,12 @@ main .features_books {
 .customSizeButton2{
         font-size: 15px;
 }
-
+.flex-container {
+    display: flex;
+}
+.flex-container > div {
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+  width: 100%;
+}

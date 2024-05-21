@@ -116,16 +116,15 @@ def book_details(request, book_id):
     return render(request, 'adm/bookdetails.html', {'book': book})
 
 @has_admin_permission
+
+
 def book_search(request):
     data = {}  # Initialize empty data dictionary
-    error = ''
 
     if request.method == 'POST':
         form = BookSearchForm(request.POST)
         if form.is_valid():
-            #bookname = form.cleaned_data['bookname']
             query = form.cleaned_data['query']
-            #books = Books.objects.filter(bookname__icontains=bookname)
             books = Books.search(query)
             if books:
                 data['books'] = books  # Add books to data if found
@@ -133,9 +132,7 @@ def book_search(request):
             else:
                 data['error'] = 'Книг с запросом "%s" не найдено.' % query  # Specific message for no results
         else:
-            error = 'Форма не заполнена'  # Set error message
-            data['error'] = error  # Add error message to data
-
+            data['error'] = 'Форма не заполнена'  # Set error message
     else:  # Handling GET requests
         form = BookSearchForm()  # Create a new form for initial display
 

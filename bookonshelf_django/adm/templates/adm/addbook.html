@@ -3,32 +3,78 @@
 {% block title %}Добавить книгу{% endblock %}
 
 {% block aside_links %}
-{% include 'main/admin_links.html'%}
+{% include 'main/admin_links.html' %}
 {% endblock %}
 
 {% block content %}
-
-<div class="features">
-
-    <div class="add_links">
-        <a  class="btn btn-info btn-sm customSizeButton2 "  href="{% url 'admin_addwriter' %}" class="book_link">Добавить автора</a>
-        <a  class="btn btn-info btn-sm customSizeButton2 "  href="{% url 'admin_addgenre' %}" class="book_link">Добавить жанр</a>
-        <a  class="btn btn-info btn-sm customSizeButton2 "  href="{% url 'admin_addlanguage' %}" class="book_link">Добавить язык</a>
-    </div>
-    <h1>Добавить книгу</h1>
-    <p>{{ error }}</p>
-        <form method="post" enctype="multipart/form-data">
+    <div class="addbook">
+    <div  method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ booksform.bookname }}<br>
-        {{ booksform.writer }}<br>
-        {{ booksform.genre }}<br>
-        {{ booksform.language }}<br>
-        {{ booksform.pageamount }}<br>
-        {{ booksform.bookamount }}<br>
-        {{ booksform.registrationnumber }}<br>
-        {{ booksform.bookannotation }}<br>
-        {{ booksform.cover }}<br>
-        <button class=" btn btn-success" type="submit">Добавить книгу</button>
+            <div class="form-group">
+                <h1>Добавить книгу</h1>
+                <p>{{ error }}</p>
+        </div>
+        <div class="form-group">
+            {{ booksform.bookname }}
+        </div>
+
+        <div class="form-group">
+            <div class="input-with-link">
+                {{ booksform.writer }}
+                <a class="btn btn-info btn-sm" href="{% url 'admin_addwriter' %}">+</a>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-with-link">
+                {{ booksform.genre }}
+                <a class="btn btn-info btn-sm" href="{% url 'admin_addgenre' %}">+</a>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-with-link">
+                {{ booksform.language }}
+                <a class="btn btn-info btn-sm" href="{% url 'admin_addlanguage' %}">+</a>
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ booksform.pageamount }}
+        </div>
+
+        <div class="form-group">
+            {{ booksform.bookamount }}
+        </div>
+
+        <div class="form-group">
+            {{ booksform.registrationnumber }}
+        </div>
+
+        <div class="form-group">
+            {{ booksform.bookannotation }}
+        </div>
+
+        <div class="form-group">
+            {{ booksform.cover }}
+        </div>
+        <button class="btn btn-success" type="submit">Добавить книгу</button>
+    </div>
     </form>
 </div>
+
+<style>
+    .form-group {
+        margin-bottom: 1em;
+    }
+
+    .input-with-link {
+        display: flex;
+        align-items: center;
+    }
+
+    .input-with-link a {
+        margin-left: 1em;
+    }
+</style>
 {% endblock %}

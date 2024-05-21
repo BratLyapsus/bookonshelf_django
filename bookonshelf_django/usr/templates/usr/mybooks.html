@@ -8,26 +8,23 @@
 {% endblock %}
 
 {% block content %}
+<h1>Взятые книги</h1>
+<div class="booksearch_list">
+{% with messages as messages %}  {% if messages %}
+{% for message in messages %}
+<div class="row justify-content-center">
+    <div class="alert alert-dark w-75 " role="alert">
+     {{message }}
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+</div>
 
-<div class="features_books">
-   <h1>Взятые книги</h1>
-
-        {% with messages as messages %}  {% if messages %}
-            {% for message in messages %}
-    <div class="row justify-content-center">
-                <div class="alert alert-dark w-75 " role="alert">
-                 {{message }}
-                </div>
-                </div>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
-
-
-
-   <div class="book_list">
-       {% for borrowedbook in borrowedbooks %}
-<ul>
+<div class="booksearch_list">
+    {% for borrowedbook in borrowedbooks %}
+    <ul>
     <li>
         <div class="card">
             <img src="{{ borrowedbook.book.cover.url }}" alt="Book Cover">
@@ -36,29 +33,22 @@
             </div>
         </div>
     </li>
+    </ul>
+{% endfor %}
+</div>
 
+<h1>Зарезервированные книги</h1>
+<div class="booksearch_list">
+{% for reservedbook in reservedbooks %}
+<ul>
+   <li>
+       <div class="card">
+           <img src="{{ reservedbook.book.cover.url }}" alt="Book Cover">
+           <div class="container">
+           </div>
+       </div>
+   </li>
 </ul>
 {% endfor %}
-   </div>
 </div>
-
-<div class="features_books">
-
-   <h1>Зарезервированные книги</h1>
-   <div class="book_list">
-       {% for reservedbook in reservedbooks %}
-       <ul>
-           <li>
-               <div class="card">
-                   <img src="{{ reservedbook.book.cover.url }}" alt="Book Cover">
-                   <div class="container">
-
-                   </div>
-               </div>
-           </li>
-       </ul>
-       {% endfor %}
-   </div>
-</div>
-
 {% endblock %}

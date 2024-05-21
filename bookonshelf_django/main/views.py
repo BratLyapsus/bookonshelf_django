@@ -11,7 +11,9 @@ def index(request):
     return render(request, "main/index.html", {'title': 'Главная страница', 'user_is_admin': user_is_admin})
 
 def info(request):
-    return render(request, "main/info.html", {'title': 'Информация'})
+    from django.contrib.auth.models import Group
+    user_is_admin = request.user.groups.filter(name='admin').exists()
+    return render(request, "main/info.html", {'title': 'Информация', 'user_is_admin': user_is_admin})
 
 def no_access(request):
     return render(request, "main/no_access.html", {'title': 'Доступ запрещен'})

@@ -7,24 +7,21 @@
 {% endblock %}
 
 {% block content %}
-    <div class="features_books">
-
-       <h1>Все книги</h1>
-        <div class="book_list">
-
-            {% for book in books %}
-                <ul>
-                <li>
-                    <div class="card">
-                    <img src="{{ book.cover.url }}" alt="Book Cover">
-                    <div class="container">
-                        <a style="font-size: 15px;" class="btn btn-info btn-sm " href="{% url 'admin_bookdetails' book_id=book.id %}" class="book_link">Перейти к книге</a>
-                    </div>
+    <h1>Все книги</h1>
+    <div class="book_list">
+        {% for book in books %}
+            <ul>
+            <li>
+                <div class="card">
+                <img src="{{ book.cover.url }}" alt="Book Cover">
+                <div class="container">
+                    <a style="font-size: 15px;" class="btn btn-info btn-sm " href="{% url 'admin_bookdetails' book_id=book.id %}" class="book_link">Перейти к книге</a>
                 </div>
-                </li>
-                </ul>
-            {% endfor %}
-        </div>
+            </div>
+            </li>
+            </ul>
+        {% endfor %}
     </div>
+</div>
 
 {% endblock %}
