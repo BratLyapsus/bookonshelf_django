@@ -2,10 +2,11 @@
 from django.contrib.auth import authenticate, login, logout
 #from .forms import LoginForm
 from books.forms import WritersForm, BooksForm, GenresForm, LanguagesForm, BookSearchForm
-from books.models import Writers, Books, Genres, Languages
+from books.models import Writers, Books, Genres, Languages, BorrowedBooks, ReservedBooks
 from django.db.models import Q
 from main import views as main_views
 from main.decorators import has_admin_permission, has_user_permission
+from django.contrib import messages  # Import messages
 
 @has_admin_permission
 def all_books(request):
@@ -148,6 +149,14 @@ def book_search(request):
 def book_delete(request, book_id):
     # Step 1: Retrieve the book object using book_id
     book = get_object_or_404(Books, id=book_id)
+#    if BorrowedBooks.objects.filter(book=book).exists():
+    if BorrowedBooks.objects.filter(book=book).exists():
+        messages.warning(request, 'Эта книга в данный момент находится у читателя. Вы не можете ее удалить')
+        return redirect('admin_bookdetails', book_id=book_id)
+    if ReservedBooks.objects.filter(book=book).exists():
+        messages.warning(request, 'Эта книга в данный момент зарезервирована. Вы не можете ее удалить')
+        return redirect('admin_bookdetails', book_id=book_id)
+
 
     # Step 2: Delete the retrieved book object
     book.delete()
