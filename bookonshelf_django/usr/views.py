@@ -63,6 +63,11 @@ def book_borrow(request, book_id):
         try:
             book = Books.objects.get(pk=book_id)
             user = request.user
+
+            #check if dellete_request is present
+            if book.deletion_requested:
+                messages.warning(request, 'Эта книга больше не доступна для заказа.')
+                return redirect('user_mybooks')
             # Check if the user has already borrowed the book
             if BorrowedBooks.objects.filter(book=book, user=user).exists():
                 messages.warning(request, 'У вас уже есть эта книга.')
@@ -99,7 +104,9 @@ def book_reserve(request, book_id):
         try:
             book = Books.objects.get(pk=book_id)
             user = request.user
-
+            if book.deletion_requested:
+                messages.warning(request, 'Эта книга больше не доступна для резервирования.')
+                return redirect('user_mybooks')
             # Check if the user has already reserved the book
             if ReservedBooks.objects.filter(book=book, user=user).exists():
                 messages.warning(request, 'Вы уже зарезервировали эту книгу.')
