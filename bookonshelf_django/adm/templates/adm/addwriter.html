@@ -13,8 +13,12 @@
         {% csrf_token %}
         {{ writersform.writername }}<br>
         <button class=" btn btn-success" type="submit">Добавить автора</button>
+        {% if error %}
+        <br><br><div class="alert alert-dark w-100" role="alert">
+            <p>{{ error }}</p>
+        </div>
+    {% endif %}
     </form>
-    <p>{{ error }}</p>
 
 </div>
 {% endblock %}
