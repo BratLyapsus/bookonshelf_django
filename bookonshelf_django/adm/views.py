@@ -152,12 +152,14 @@ def book_delete(request, book_id):
 #    if BorrowedBooks.objects.filter(book=book).exists():
     if BorrowedBooks.objects.filter(book=book).exists():
         messages.warning(request, 'Эта книга в данный момент находится у читателя. Вы не можете ее удалить')
+        book.deletion_requested = True
+        book.save()
         return redirect('admin_bookdetails', book_id=book_id)
     if ReservedBooks.objects.filter(book=book).exists():
         messages.warning(request, 'Эта книга в данный момент зарезервирована. Вы не можете ее удалить')
+        book.deletion_requested = True
+        book.save()
         return redirect('admin_bookdetails', book_id=book_id)
-
-
     # Step 2: Delete the retrieved book object
     book.delete()
 
