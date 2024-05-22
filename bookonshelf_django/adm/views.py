@@ -23,9 +23,11 @@ def add_book(request):
     if request.method == 'POST':
         booksform = BooksForm(request.POST, request.FILES)
         if booksform.is_valid():
-            bookname = booksform.cleaned_data['bookname']
-            writername = booksform.cleaned_data['writer']
-            if Books.objects.filter(bookname=bookname, writer=writername).exists():
+#            bookname = booksform.cleaned_data['bookname']
+#            writername = booksform.cleaned_data['writer']
+            registrationnumber = booksform.cleaned_data['registrationnumber']
+#            if Books.objects.filter(bookname=bookname, writer=writername).exists():
+            if Books.objects.filter(registrationnumber=registrationnumber).exists():
                 error = 'Такая книга уже существует'
             else:
                 booksform.save()
