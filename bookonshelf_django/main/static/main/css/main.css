@@ -296,3 +296,15 @@ main .features_books {
         font-size: 15px;
 }
 
+.form-group {
+        margin-bottom: 1em;
+    }
+
+    .input-with-link {
+        display: flex;
+        align-items: center;
+    }
+
+    .input-with-link a {
+        margin-left: 1em;
+    }

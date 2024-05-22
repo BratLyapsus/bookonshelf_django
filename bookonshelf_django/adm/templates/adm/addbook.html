@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="addbook">
-    <div  method="post" enctype="multipart/form-data">
+    <form  method="post" enctype="multipart/form-data">
         {% csrf_token %}
             <div class="form-group">
                 <h1>Добавить книгу</h1>
@@ -59,22 +59,11 @@
             {{ booksform.cover }}
         </div>
         <button class="btn btn-success" type="submit">Добавить книгу</button>
-    </div>
+    </ащкь>
     </form>
 </div>
 
 <style>
-    .form-group {
-        margin-bottom: 1em;
-    }
 
-    .input-with-link {
-        display: flex;
-        align-items: center;
-    }
-
-    .input-with-link a {
-        margin-left: 1em;
-    }
 </style>
 {% endblock %}
