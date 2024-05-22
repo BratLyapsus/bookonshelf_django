@@ -43,6 +43,7 @@ class Books(models.Model):
     genre = models.ForeignKey(Genres, on_delete=models.CASCADE)
     cover = models.ImageField(upload_to='cover/', blank=True)
     deletion_requested = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False)
 
     @classmethod
     def search(cls, query):

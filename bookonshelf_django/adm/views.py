@@ -161,7 +161,8 @@ def book_delete(request, book_id):
         book.save()
         return redirect('admin_bookdetails', book_id=book_id)
     # Step 2: Delete the retrieved book object
-    book.delete()
+    book.is_deleted = True
+    book.save()
 
     # Step 3: Redirect to a new page or render a template
     return redirect('admin_allbooks')  # Redirect to a specific URL

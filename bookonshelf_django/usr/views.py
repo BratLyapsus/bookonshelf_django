@@ -13,7 +13,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 @has_user_permission
 def all_books(request):
-    books = Books.objects.all()
+    books = Books.objects.filter(is_deleted=False)
     booksearchform = BookSearchForm()
     data = {
         'books': books,

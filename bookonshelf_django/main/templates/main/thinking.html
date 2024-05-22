@@ -28,8 +28,13 @@
 
     book deletion: added parameter deletion_requested, when deletion is not possible due to borrow or reserve,
     deletion_requested changes to True=>
-    Book reserve need to check if deleteion requested, if yes, then cannot not borrow.
-    The same for reserve
+    Book reserve need to check if deleteion requested, if yes, then cannot not borrow: done
+    The same for reserve: done
+    Next: let's do soft deletion.
+        First lets add to model field is_deleted. Done, then put filter in user/allbooks is_deleted=false.
+            If True it will not be shown to user: done
+        How to show to admin that book is deleted? Add in book details message that book either deleted or exists.
+            Then i need action to restore the book
 
 
 </p>
