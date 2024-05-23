@@ -1,3 +1,4 @@
+/*////////////////layout all pages*/
 body {
     background: #2c2c2c;
 }
@@ -63,7 +64,7 @@ main .features {
     text-align: center;
     width: 100%;
 }
-
+/*//////////all pages//////////*/
     main .features h1 {
         float: left;
         font-size: 50px;
@@ -74,7 +75,7 @@ main .features {
         max-width: 800px;
         margin: 20px auto
     }
-
+/*//////////////info.html*/
 main .features_info {
     text-align: left;
 }
@@ -83,7 +84,7 @@ main .features_info {
         font-size: 50px;
         text-align: center;
     }
-
+/*////////////login.html*/
 .login {
     width: 30%;
     margin-left: 35%;
@@ -98,7 +99,7 @@ main .features_info {
         margin-left: 30.5%;
     }
 
-
+/*seems like not used*/
 .alert-warning {
     float: left;
     clear: both;
@@ -109,7 +110,7 @@ main .features_info {
     text-align: left;
     font-size: 12px;
 }
-
+/*adm/booksearch.html*/
 .booksearch {
     width: 30%;
     margin-left: 30%;

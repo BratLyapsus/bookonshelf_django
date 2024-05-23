@@ -10,13 +10,22 @@ from django.contrib import messages  # Import messages
 
 @has_admin_permission
 def all_books(request):
-    books = Books.objects.all()
+    books = Books.objects.filter(is_deleted=False)
     booksearchform = BookSearchForm()
     data = {
         'books': books,
         'booksearchform': booksearchform
     }
     return render(request, "adm/allbooks.html", data)
+
+def archive_books(request):
+    books = Books.objects.filter(is_deleted=True)
+    booksearchform = BookSearchForm()
+    data = {
+        'books': books,
+        'booksearchform': booksearchform
+    }
+    return render(request, "adm/archivebooks.html", data)
 
 @has_admin_permission
 def add_book(request):
@@ -149,14 +158,15 @@ def book_search(request):
 def book_delete(request, book_id):
     # Step 1: Retrieve the book object using book_id
     book = get_object_or_404(Books, id=book_id)
+    book_name = book.bookname
 #    if BorrowedBooks.objects.filter(book=book).exists():
     if BorrowedBooks.objects.filter(book=book).exists():
-        messages.warning(request, 'Эта книга в данный момент находится у читателя. Вы не можете ее удалить')
+        messages.warning(request, f'Книга "{book_name}" в данный момент находится у читателя. Вы не можете ее удалить')
         book.deletion_requested = True
         book.save()
         return redirect('admin_bookdetails', book_id=book_id)
     if ReservedBooks.objects.filter(book=book).exists():
-        messages.warning(request, 'Эта книга в данный момент зарезервирована. Вы не можете ее удалить')
+        messages.warning(request, f'Книга "{book_name}" в данный момент зарезервирована. Вы не можете ее удалить')
         book.deletion_requested = True
         book.save()
         return redirect('admin_bookdetails', book_id=book_id)
@@ -164,17 +174,33 @@ def book_delete(request, book_id):
     book.is_deleted = True
     book.deletion_requested = False
     book.save()
+    messages.warning(request, f'Книга "{book_name}" пермещена в архив')
 
     # Step 3: Redirect to a new page or render a template
     return redirect('admin_allbooks')  # Redirect to a specific URL
 
+def book_restore(request, book_id):
+    book = get_object_or_404(Books, id=book_id)
+    book_name = book.bookname
+    book.is_deleted = False
+    book.save()
+    messages.warning(request, f'Книга "{book_name}" возвращена из архива')
+    return redirect('admin_archivebooks')  # Redirect to a specific URL
 @has_admin_permission
 def book_edit(request, book_id):
     book = get_object_or_404(Books, id=book_id)
+    book_name = book.bookname
+    if BorrowedBooks.objects.filter(book=book):
+        messages.warning(request, f'Книга "{book_name}" в данный момент у читателя, попробуйте позже')
+        return redirect('admin_allbooks')
+    if ReservedBooks.objects.filter(book=book):
+        messages.warning(request, f'Книга "{book_name}" в данный момент у читателя, попробуйте позже')
+        return redirect('admin_allbooks')
     error = ''
     if request.method == 'POST':
         booksform = BooksForm(request.POST, request.FILES, instance=book)
         if booksform.is_valid():
+
             booksform.save()
             return redirect('admin_allbooks')
         else:

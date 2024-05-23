@@ -1,14 +1,14 @@
 {% extends 'main/layout.html' %}
 
-{% block title %}Все книги{% endblock %}
+{% block title %}Архив{% endblock %}
 
 {% block aside_links %}
 {% include 'main/admin_links.html'%}
 {% endblock %}
 
 {% block content %}
-    <h1>Все книги</h1>
-    {% with messages as messages %}  {% if messages %}
+    <h1>Архив</h1>
+        {% with messages as messages %}  {% if messages %}
             {% for message in messages %}
                     <div class="row justify-content-center">
                 <div class="alert alert-dark w-75 " role="alert">
@@ -18,7 +18,7 @@
             {% endfor %}
         {% endif %}
         {% endwith %}
-    <div class="booksearch_list">
+    <div class="book_list" style="float: left">
         {% for book in books %}
             <ul>
             <li>

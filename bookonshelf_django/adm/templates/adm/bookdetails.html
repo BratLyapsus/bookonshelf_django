@@ -10,6 +10,7 @@
     {% if  book.is_deleted%}
     <div class="bookstatus_deleted">
         <h5>Уведомление: Книга в архиве</h5>
+        <a style="margin:0px 15px 0px -15px;" class="btn btn-info btn-sm customSizeButton1 " href="{% url 'admin_restorebook' book_id=book.id %}">Вернуть из архива</a>
     </div><br>
     {% else %}
         {% if  book.deletion_requested%}
@@ -42,7 +43,7 @@
             <div class="card_bookphoto">
                 <img src="{{ book.cover.url }}" alt="Book Cover">
                 <div class="container justify-content-center w-100" style="display: flex; margin-top:0px;">
-                    <a style="margin:0px 15px 0px -15px;" class="btn btn-danger btn-sm customSizeButton1 " href="{% url 'admin_deletebook' book_id=book.id %}">Удалить</a>
+                    <a style="margin:0px 15px 0px -15px;" class="btn btn-danger btn-sm customSizeButton1 " href="{% url 'admin_deletebook' book_id=book.id %}">В архив</a>
                     <a  class="btn btn-warning btn-sm customSizeButton2 " href="{% url 'admin_editbook' book_id=book.id %}" >Редактировать</a>
                 </div>
             </div>
