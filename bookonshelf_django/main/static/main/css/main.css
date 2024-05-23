@@ -155,6 +155,30 @@ margin-top: 100px;
     height: 350px;
 
 }
+main .features .bookstatus_fordeletion {
+    float: right;
+    width: auto;
+    background-color: darkorange;
+    border: solid red 2px;
+    border-radius: 5px;
+    padding: 2px;
+}
+main .features .bookstatus_available {
+    float: right;
+    width: auto;
+    background-color: darkgreen;
+    border: solid red 2px;
+    border-radius: 5px;
+    padding: 2px;
+}
+main .features .bookstatus_deleted {
+    float: right;
+    width: auto;
+    background-color: darkred;
+    border: solid red 2px;
+    border-radius: 5px;
+    padding: 2px;
+}
 
 /* On mouse-over, add a deeper shadow */
 .card:hover {

@@ -33,8 +33,11 @@
     Next: let's do soft deletion.
         First lets add to model field is_deleted. Done, then put filter in user/allbooks is_deleted=false.
             If True it will not be shown to user: done
-        How to show to admin that book is deleted? Add in book details message that book either deleted or exists.
-            Then i need action to restore the book
+        How to show to admin that book is deleted? Add in book details for admin message that book either deleted or exists: done.
+        Added message for user that books cannot be anymore odered or reserved: done
+            now it is first checking for deletion or request.=> even if alredy in borrow for user, allows to try to trder, need to change stayus check after checking inborrow or in reserve
+        When book is deleted, change requested for deletion to false: done
+        Now i
 
 
 </p>

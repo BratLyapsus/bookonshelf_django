@@ -64,13 +64,14 @@ def book_borrow(request, book_id):
             book = Books.objects.get(pk=book_id)
             user = request.user
 
-            #check if dellete_request is present
-            if book.deletion_requested:
-                messages.warning(request, 'Эта книга больше не доступна для заказа.')
-                return redirect('user_mybooks')
+
             # Check if the user has already borrowed the book
             if BorrowedBooks.objects.filter(book=book, user=user).exists():
                 messages.warning(request, 'У вас уже есть эта книга.')
+                return redirect('user_mybooks')
+            #check if dellete_request is present
+            if book.deletion_requested or book.is_deleted:
+                messages.warning(request, 'Эта книга больше не доступна для заказа.')
                 return redirect('user_mybooks')
 
 
@@ -104,10 +105,6 @@ def book_reserve(request, book_id):
         try:
             book = Books.objects.get(pk=book_id)
             user = request.user
-            if book.deletion_requested:
-                messages.warning(request, 'Эта книга больше не доступна для резервирования.')
-                return redirect('user_mybooks')
-            # Check if the user has already reserved the book
             if ReservedBooks.objects.filter(book=book, user=user).exists():
                 messages.warning(request, 'Вы уже зарезервировали эту книгу.')
                 return redirect('user_mybooks')
@@ -116,6 +113,10 @@ def book_reserve(request, book_id):
             if BorrowedBooks.objects.filter(book=book, user=user).exists():
                 messages.warning(request, 'У вас уже есть эта книга.')
                 return redirect('user_mybooks')
+            if book.deletion_requested or book.isdeleted:
+                messages.warning(request, 'Эта книга больше не доступна для заказа.')
+                return redirect('user_mybooks')            # Check if the user has already reserved the book
+
 
             if book.bookamount == 0:
                 reserved_book = ReservedBooks(book=book, user=user)
@@ -196,6 +197,11 @@ def book_return(request, book_id):
                     # Display a message indicating the book is borrowed by the reserved user
                     messages.info(request,
                                   f'Книга была автоматически выдана пользователю {borrowed_book.user.username}.')
+                if Books.objects.filter(id=book_id, deletion_requested=True).exists():
+                    book = Books.objects.get(id=book_id)
+                    book.is_deleted = True
+                    book.deletion_requested = False
+                    book.save()
 
         except ObjectDoesNotExist:
             # Handle the case where the book is not borrowed by the user
