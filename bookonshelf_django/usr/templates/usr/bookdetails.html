@@ -30,7 +30,7 @@
                 <div class="book_details">
                     <div class="card_bookphoto">
                         <img src="{{ book.cover.url }}" alt="Book Cover">
-                         <div class="container" style="display: flex; margin-top:0px;">
+                         <div class="container" style="display: flex; margin-left:35px; margin-top: 0px;">
 
         <a  class="btn btn-success btn-sm customSizeButton1 " href="{% url 'user_borrowbook' book.id %}">Заказать</a>
         <a class="btn btn-success btn-sm customSizeButton2 " href="{% url 'user_reservebook' book.id %}" >Зарезервировать</a>
