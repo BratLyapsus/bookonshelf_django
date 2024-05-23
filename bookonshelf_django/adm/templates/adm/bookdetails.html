@@ -10,7 +10,6 @@
     {% if  book.is_deleted%}
     <div class="bookstatus_deleted">
         <h5>Уведомление: Книга в архиве</h5>
-        <a style="margin:0px 15px 0px -15px;" class="btn btn-info btn-sm customSizeButton1 " href="{% url 'admin_restorebook' book_id=book.id %}">Вернуть из архива</a>
     </div><br>
     {% else %}
         {% if  book.deletion_requested%}
@@ -53,6 +52,7 @@
                 <p>{{ book.bookannotation }}</p>
             </div>
         </div>
+
 
 
 

@@ -78,6 +78,7 @@ main .features {
 /*//////////////info.html*/
 main .features_info {
     text-align: left;
+    padding: 5%;
 }
 
     main .features_info h1 {
