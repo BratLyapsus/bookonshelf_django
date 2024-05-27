@@ -10,6 +10,7 @@ from main import views as main_views
 from main.decorators import has_admin_permission, has_user_permission
 from django.contrib import messages  # Import messages
 from django.core.exceptions import ObjectDoesNotExist
+from .utils import send_notification_email
 
 @has_user_permission
 def all_books(request):
@@ -113,7 +114,7 @@ def book_reserve(request, book_id):
             if BorrowedBooks.objects.filter(book=book, user=user).exists():
                 messages.warning(request, 'У вас уже есть эта книга.')
                 return redirect('user_mybooks')
-            if book.deletion_requested or book.isdeleted:
+            if book.deletion_requested or book.is_deleted:
                 messages.warning(request, 'Эта книга больше не доступна для заказа.')
                 return redirect('user_mybooks')            # Check if the user has already reserved the book
 
@@ -162,50 +163,60 @@ def bookshistory(request):
 
 
 has_user_permission
+
+
 def book_return(request, book_id):
-        try:
-            with transaction.atomic():
-                # Get the book from the Books table
-                book = Books.objects.get(pk=book_id)
+    try:
+        with transaction.atomic():
+            # Get the book from the Books table
+            book = Books.objects.get(pk=book_id)
 
-                # Update the bookamount
-                Books.objects.filter(pk=book_id).update(bookamount=F('bookamount') + 1)
+            # Update the bookamount
+            Books.objects.filter(pk=book_id).update(bookamount=F('bookamount') + 1)
 
-                # Check if the book is borrowed by the user
-                borrowed_book = BorrowedBooks.objects.get(book_id=book_id, user=request.user)
+            # Check if the book is borrowed by the user
+            borrowed_book = BorrowedBooks.objects.get(book_id=book_id, user=request.user)
 
-                # Delete the borrowed book entry
-                borrowed_book.delete()
+            # Delete the borrowed book entry
+            borrowed_book.delete()
 
-                # Display success message
-                messages.success(request, 'Книга успешно возвращена.')
+            # Display success message
+            messages.success(request, 'Книга успешно возвращена.')
 
-                # Check if there are reserved copies of this book
-                reserved_books = ReservedBooks.objects.filter(book=book)
+            # Check if there are reserved copies of this book
+            reserved_books = ReservedBooks.objects.filter(book=book)
 
-                if reserved_books.exists():
-                    # Get the first reserved book (earliest reservation)
-                    reserved_book = reserved_books.first()
+            if reserved_books.exists():
+                # Get the first reserved book (earliest reservation)
+                reserved_book = reserved_books.first()
 
-                    # Create a borrowed book entry for the reserved user
-                    borrowed_book = BorrowedBooks(book=book, user=reserved_book.user)
-                    borrowed_book.save()
+                # Create a borrowed book entry for the reserved user
+                borrowed_book = BorrowedBooks(book=book, user=reserved_book.user)
+                borrowed_book.save()
 
-                    # Delete the reserved book entry
-                    reserved_book.delete()
+                # Delete the reserved book entry
+                reserved_book.delete()
 
-                    # Display a message indicating the book is borrowed by the reserved user
-                    messages.info(request,
-                                  f'Книга была автоматически выдана пользователю {borrowed_book.user.username}.')
-                if Books.objects.filter(id=book_id, deletion_requested=True).exists():
-                    book = Books.objects.get(id=book_id)
-                    book.is_deleted = True
-                    book.deletion_requested = False
-                    book.save()
+                # Send email notification to the user
+                subject = 'Резервирование'
+                message = f'Уважаемый {borrowed_book.user.username},\n\nКнига "{book.bookname}" которую вы резервировали, сейчас доступна и вы можете ее забрать.\n\nBest regards,\nС уважением, администрация библиотеки.'
+                recipient_list = [borrowed_book.user.email]
+                send_notification_email(subject, message, recipient_list)
 
-        except ObjectDoesNotExist:
-            # Handle the case where the book is not borrowed by the user
-            messages.error(request, 'У вас нет этой книги в аренде.')
+                # Display a message indicating the book is borrowed by the reserved user
+                messages.info(request,
+                              f'Книга была автоматически выдана пользователю {borrowed_book.user.username}.')
 
-        # Redirect back to the page displaying borrowed books
-        return redirect('user_mybooks')
+            # Handle deletion requested books
+            if Books.objects.filter(id=book_id, deletion_requested=True).exists():
+                book = Books.objects.get(id=book_id)
+                book.is_deleted = True
+                book.deletion_requested = False
+                book.save()
+
+    except ObjectDoesNotExist:
+        # Handle the case where the book is not borrowed by the user
+        messages.error(request, 'У вас нет этой книги в аренде.')
+
+    # Redirect back to the page displaying borrowed books
+    return redirect('user_mybooks')
