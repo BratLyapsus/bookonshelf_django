@@ -197,11 +197,11 @@ def book_return(request, book_id):
                 # Delete the reserved book entry
                 reserved_book.delete()
 
-                # Send email notification to the user
-                subject = 'Резервирование'
-                message = f'Уважаемый {borrowed_book.user.username},\n\nКнига "{book.bookname}" которую вы резервировали, сейчас доступна и вы можете ее забрать.\n\nBest regards,\nС уважением, администрация библиотеки.'
-                recipient_list = [borrowed_book.user.email]
-                send_notification_email(subject, message, recipient_list)
+#                # Send email notification to the user
+#                subject = 'Резервирование'
+#                message = f'Уважаемый {borrowed_book.user.username},\n\nКнига "{book.bookname}" которую вы резервировали, сейчас доступна и вы можете ее забрать.\n\nBest regards,\nС уважением, администрация библиотеки.'
+#                recipient_list = [borrowed_book.user.email]
+#                send_notification_email(subject, message, recipient_list)
 
                 # Display a message indicating the book is borrowed by the reserved user
                 messages.info(request,
